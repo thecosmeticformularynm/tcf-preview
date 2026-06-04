@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Back Office — The Cosmetic Formulary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#faf7f2;--bg-2:#f2ece2;--ink:#1d1c1a;--ink-soft:#54514b;--line:#e2dacd;
+    --paper:#fffdfa;--accent:#3a4b3f;--accent-2:#7c8a6f;--gold:#a98a5c;
+    --ok:#3a6b4a;--warn:#9a6b2f;--red:#9a3f2f;--blue:#3a4f6b;--radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;font-size:14px}
+  h1,h2,h3,h4{font-family:'Fraunces','Times New Roman',serif;font-weight:400;letter-spacing:-.01em;line-height:1.12}
+  a{color:inherit;text-decoration:none}
+  .flag{background:var(--gold);color:#fff;text-align:center;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;padding:6px;font-weight:600}
+  .flag a{text-decoration:underline}
+
+  .shell{display:grid;grid-template-columns:218px 1fr;min-height:calc(100vh - 28px)}
+  @media(max-width:900px){.shell{grid-template-columns:1fr}.side{position:static !important;height:auto !important;flex-direction:row !important;overflow-x:auto}.side .grp,.side .who{display:none}}
+
+  /* sidebar */
+  .side{background:var(--accent);color:#e9ece6;padding:18px 14px;display:flex;flex-direction:column;gap:3px;position:sticky;top:0;height:calc(100vh - 28px)}
+  .side .brand{font-family:'Fraunces';font-size:1.05rem;color:#fff;display:flex;align-items:center;gap:.5em;margin-bottom:18px;padding:0 6px}
+  .side .brand .m{width:26px;height:26px;border:1.5px solid #fff;border-radius:50%;display:grid;place-items:center;font-size:.66rem}
+  .side .grp{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#9fb09a;margin:14px 6px 4px}
+  .nav{display:flex;align-items:center;gap:10px;padding:.62em .7em;border-radius:9px;cursor:pointer;color:#dfe4dc;font-size:.9rem;transition:.15s}
+  .nav:hover{background:rgba(255,255,255,.08)}
+  .nav.on{background:#fff;color:var(--accent);font-weight:600}
+  .nav .ic{width:16px;height:16px;flex:none}
+  .nav .badge{margin-left:auto;background:var(--gold);color:#fff;font-size:.66rem;font-weight:700;border-radius:100px;padding:.05em .5em}
+  .nav.on .badge{background:var(--accent);color:#fff}
+  .side .who{margin-top:auto;padding:12px 6px 0;border-top:1px solid rgba(255,255,255,.12);font-size:.78rem;color:#bcc7b6}
+  .side .who b{color:#fff;display:block;font-family:'Fraunces';font-size:.95rem}
+
+  /* main */
+  main{padding:26px 30px;max-width:1100px}
+  .head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;gap:16px;flex-wrap:wrap}
+  .head h1{font-size:1.9rem}
+  .head p{color:var(--ink-soft);font-size:.9rem;margin-top:3px}
+  .view{display:none}.view.on{display:block}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:14px;margin-bottom:24px}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+  .card .k{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+  .card .v{font-family:'Fraunces';font-size:1.9rem;margin-top:4px;line-height:1}
+  .card .s{font-size:.76rem;color:var(--accent-2);margin-top:5px}
+  .card.alert{border-color:#e7d3c4;background:#fbf2ea}
+  .card.alert .v{color:var(--warn)}
+
+  .panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:22px}
+  .panel .ph{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+  .panel .ph h3{font-size:1.15rem}
+  .panel .ph .sub{font-size:.8rem;color:var(--ink-soft)}
+
+  .row{display:grid;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line);font-size:.88rem}
+  .row:last-child{border-bottom:none}
+  .row .t{font-weight:600}
+  .row .meta{font-size:.76rem;color:var(--ink-soft)}
+  .ordrow{grid-template-columns:1.4fr 1fr auto auto}
+  .practrow{grid-template-columns:1.5fr 1fr auto}
+  .prodrow{grid-template-columns:2fr 1fr 1fr auto}
+  .quoterow{grid-template-columns:2fr 1fr auto}
+
+  .badge2{font-size:.68rem;font-weight:600;padding:.3em .7em;border-radius:100px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+  .b-wire{background:#f4ead8;color:var(--warn)}.b-paid{background:#e6efe7;color:var(--ok)}
+  .b-fin{background:#e7ecf2;color:var(--blue)}.b-ship{background:#e6efe7;color:var(--ok)}
+  .b-new{background:#f0e7ef;color:#7a3f6b}.b-draft{background:#eee9e0;color:var(--ink-soft)}
+  .b-active{background:#e6efe7;color:var(--ok)}
+  .amt{font-family:'Fraunces';font-size:1rem;text-align:right}
+
+  .btn{font-size:.8rem;font-weight:600;border:1px solid var(--ink);border-radius:100px;padding:.45em 1em;cursor:pointer;background:none;color:var(--ink);transition:.15s;white-space:nowrap}
+  .btn:hover{background:var(--ink);color:var(--bg)}
+  .btn.go{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.go:hover{background:var(--ink);border-color:var(--ink)}
+  .btn.sm{padding:.35em .8em;font-size:.74rem}
+  .btn.done{background:#e6efe7;border-color:#cfe0d2;color:var(--ok);cursor:default}
+
+  .todo{display:flex;align-items:center;gap:13px;padding:13px 18px;border-bottom:1px solid var(--line)}
+  .todo:last-child{border:none}
+  .todo .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .todo .x{font-size:.88rem}.todo .x b{font-weight:600}
+  .todo .when{margin-left:auto;font-size:.74rem;color:var(--ink-soft)}
+
+  .filt{display:flex;gap:7px;padding:12px 18px 2px;flex-wrap:wrap}
+  .chip{border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);padding:.35em .9em;border-radius:100px;font-size:.78rem;font-family:inherit;cursor:pointer}
+  .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+  .note{font-size:.82rem;color:var(--ink-soft);background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin:0 18px 16px}
+  .note b{color:var(--ink)}
+  .setgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;padding:16px 18px}
+  .setitem{border:1px solid var(--line);border-radius:11px;padding:14px}
+  .setitem h4{font-size:1rem;margin-bottom:5px}
+  .setitem p{font-size:.8rem;color:var(--ink-soft)}
+  .pill{display:inline-block;font-size:.68rem;font-weight:600;padding:.2em .6em;border-radius:100px;margin-top:8px}
+  .pill.on{background:#e6efe7;color:var(--ok)}.pill.off{background:#eee9e0;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div class="flag">Prototype · test mode · mirrors your real Shopify Admin + B2B app — <a href="start.html">back to test hub</a></div>
+<div class="shell">
+  <!-- SIDEBAR -->
+  <aside class="side">
+    <div class="brand"><span class="m">CF</span> Back Office</div>
+    <div class="nav on" data-v="dash"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13h8V3H3zM13 21h8V3h-8zM3 21h8v-6H3z"/></svg> Dashboard</div>
+    <div class="grp">Sales</div>
+    <div class="nav" data-v="orders"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2 3 6v14h18V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg> Orders <span class="badge">2</span></div>
+    <div class="nav" data-v="quotes"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6v20h12V8zM14 2v6h6M9 13h6M9 17h4"/></svg> Quotes <span class="badge">1</span></div>
+    <div class="nav" data-v="practices"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.87"/></svg> Practices <span class="badge">2</span></div>
+    <div class="grp">Catalog</div>
+    <div class="nav" data-v="products"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 7 12 3 4 7v10l8 4 8-4zM4 7l8 4 8-4M12 21V11"/></svg> Products</div>
+    <div class="nav" data-v="payments"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h20v12H2zM2 11h20M6 15h4"/></svg> Payments</div>
+    <div class="nav" data-v="settings"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1l-.4-2.6h-4l-.4 2.6a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L5 11a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 2.6h4l.4-2.6a7 7 0 0 0 1.7-1l2.4 1 2-3.4-2-1.6a7 7 0 0 0 .1-1z"/></svg> Settings</div>
+    <div class="who"><b>Rashell K.</b>Sales &amp; Operations · staff</div>
+  </aside>
+
+  <main>
+    <!-- DASHBOARD -->
+    <section class="view on" id="v-dash">
+      <div class="head"><div><h1>Good morning, Rashell.</h1><p>Here's what needs you today — Tuesday, June 4.</p></div></div>
+      <div class="cards">
+        <div class="card alert"><div class="k">Wires to confirm</div><div class="v">$15,500</div><div class="s">2 orders awaiting funds</div></div>
+        <div class="card alert"><div class="k">Quotes to price</div><div class="v">1</div><div class="s">Charleston Skin Co</div></div>
+        <div class="card"><div class="k">Practices to approve</div><div class="v">2</div><div class="s">new wholesale requests</div></div>
+        <div class="card"><div class="k">Revenue · MTD</div><div class="v">$28.4k</div><div class="s">+18% vs last month</div></div>
+        <div class="card"><div class="k">Low stock</div><div class="v">3</div><div class="s">actives below reorder pt</div></div>
+      </div>
+      <div class="panel">
+        <div class="ph"><h3>Needs you now</h3><span class="sub">clear these and you're done</span></div>
+        <div class="todo"><span class="dot" style="background:var(--warn)"></span><div class="x"><b>Confirm wire</b> from Glow Dermatology — $12,000 (order #TCF-1042) then release shipment</div><span class="when">2 days waiting</span></div>
+        <div class="todo"><span class="dot" style="background:#7a3f6b"></span><div class="x"><b>Price the quote</b> from Charleston Skin Co — Vitamin C formulation + 250 bottles</div><span class="when">today</span></div>
+        <div class="todo"><span class="dot" style="background:var(--blue)"></span><div class="x"><b>Approve</b> Coastal Dermatology &amp; Bloom Medspa for wholesale pricing</div><span class="when">1 day</span></div>
+        <div class="todo"><span class="dot" style="background:var(--ok)"></span><div class="x"><b>Fulfill</b> Lowcountry Aesthetics — 500 units, wire cleared, ready to ship</div><span class="when">ready</span></div>
+      </div>
+    </section>
+
+    <!-- ORDERS -->
+    <section class="view" id="v-orders">
+      <div class="head"><div><h1>Orders</h1><p>Wholesale orders route here. Confirm the wire, then release the shipment.</p></div></div>
+      <div class="panel">
+        <div class="filt"><button class="chip on">All</button><button class="chip">Wire pending</button><button class="chip">Paid</button><button class="chip">Shipped</button></div>
+        <div class="row ordrow"><div><div class="t">#TCF-1042 · Glow Dermatology</div><div class="meta">250 × Vitamin C 20% THD · Jun 1</div></div><span class="badge2 b-wire">Wire pending</span><span class="amt">$12,000</span><button class="btn go sm" onclick="confirmWire(this)">Confirm wire → release</button></div>
+        <div class="row ordrow"><div><div class="t">#TCF-1041 · Bloom Medspa</div><div class="meta">PDRN serum + capsule cream · 100 ea · Jun 3</div></div><span class="badge2 b-wire">Wire pending</span><span class="amt">$3,500</span><button class="btn go sm" onclick="confirmWire(this)">Confirm wire → release</button></div>
+        <div class="row ordrow"><div><div class="t">#TCF-1039 · Charleston Skin Co</div><div class="meta">Formulation fee + 250 airless bottles · May 18</div></div><span class="badge2 b-fin">Financed · Affirm</span><span class="amt">$6,200</span><button class="btn sm done">Paid in full</button></div>
+        <div class="row ordrow"><div><div class="t">#TCF-1031 · Lowcountry Aesthetics</div><div class="meta">500 × Gel Cleanser · Apr 22</div></div><span class="badge2 b-paid">Paid · Wire</span><span class="amt">$12,500</span><button class="btn go sm" onclick="ship(this)">Print label → ship</button></div>
+        <div class="row ordrow"><div><div class="t">#TCF-1024 · Glow Dermatology</div><div class="meta">1,000 × 30mL dropper bottles · Apr 3</div></div><span class="badge2 b-ship">Shipped</span><span class="amt">$1,300</span><button class="btn sm done">Complete</button></div>
+      </div>
+      <div class="note">💡 In real Shopify: these are <b>Orders</b>. "Confirm wire" = mark the manual <b>Bank Transfer</b> payment as paid; "Print label" = Shopify Shipping. Affirm orders arrive already paid in full.</div>
+    </section>
+
+    <!-- QUOTES -->
+    <section class="view" id="v-quotes">
+      <div class="head"><div><h1>Quote requests</h1><p>Custom projects from the practice portal. Price them and send back.</p></div></div>
+      <div class="panel">
+        <div class="row quoterow"><div><div class="t">Charleston Skin Co · New formulation</div><div class="meta">Vitamin C serum to brief + 250 × 30mL airless · est. 2,000 u/yr</div></div><span class="badge2 b-new">New</span><button class="btn go sm" onclick="alert('Opens a draft order: formulation fee + per-unit price + packaging line, sends a pay-by-link.')">Build &amp; send quote</button></div>
+        <div class="row quoterow"><div><div class="t">Bloom Medspa · Contract manufacturing</div><div class="meta">Bring-your-own collagen mask formula · 1,000 u run</div></div><span class="badge2 b-new">New</span><button class="btn go sm" onclick="alert('Opens a draft order for the contract-mfg run, priced per unit by volume.')">Build &amp; send quote</button></div>
+      </div>
+      <div class="note">💡 In real Shopify: a "Request a Quote" app captures these; you respond with a <b>Draft Order</b> (custom line items: formulation fee + components + run) and email the invoice/pay-link.</div>
+    </section>
+
+    <!-- PRACTICES -->
+    <section class="view" id="v-practices">
+      <div class="head"><div><h1>Practices</h1><p>Approve a practice and they unlock their wholesale pricing &amp; reorder login.</p></div></div>
+      <div class="panel">
+        <div class="ph"><h3>Pending approval</h3><span class="sub">wholesale access requests</span></div>
+        <div class="row practrow"><div><div class="t">Coastal Dermatology</div><div class="meta">Mt Pleasant, SC · Dr. Nguyen · requested Jun 3</div></div><span class="badge2 b-new">Pending</span><button class="btn go sm" onclick="approve(this)">Approve for wholesale</button></div>
+        <div class="row practrow"><div><div class="t">Bloom Medspa</div><div class="meta">Charleston, SC · K. Foster · requested Jun 2</div></div><span class="badge2 b-new">Pending</span><button class="btn go sm" onclick="approve(this)">Approve for wholesale</button></div>
+      </div>
+      <div class="panel">
+        <div class="ph"><h3>Active accounts</h3><span class="sub">3 practices</span></div>
+        <div class="row practrow"><div><div class="t">Glow Dermatology</div><div class="meta">Standard tier · 4 orders · $26.6k lifetime</div></div><span class="badge2 b-active">Active</span><button class="btn sm">View pricing</button></div>
+        <div class="row practrow"><div><div class="t">Lowcountry Aesthetics</div><div class="meta">Volume tier · 7 orders · $41k lifetime</div></div><span class="badge2 b-active">Active</span><button class="btn sm">View pricing</button></div>
+        <div class="row practrow"><div><div class="t">Charleston Skin Co</div><div class="meta">Standard tier · 2 orders · $9.7k lifetime</div></div><span class="badge2 b-active">Active</span><button class="btn sm">View pricing</button></div>
+      </div>
+      <div class="note">💡 In real Shopify: practices = <b>Customers</b> tagged into a B2B company with a <b>price list</b>. Approving = adding them to the wholesale group so they see your $/unit on login.</div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="view" id="v-products">
+      <div class="head"><div><h1>Products</h1><p>Your live catalog — wholesale price (what the practice pays you) and MSRP.</p></div></div>
+      <div class="panel">
+        <div class="filt"><button class="chip on">All</button><button class="chip">Serums</button><button class="chip">Cleansers</button><button class="chip">K-Beauty</button><button class="chip">Packaging</button><button class="chip">Raw materials</button></div>
+        <div class="row prodrow"><div><div class="t">Vitamin C Serum 20% THD · 0.5oz</div><div class="meta">Serum · refined SkinCeuticals chassis</div></div><div><b>$48</b> <span class="meta">/ MSRP $90</span></div><div class="meta">~70% margin</div><span class="badge2 b-draft">Draft</span></div>
+        <div class="row prodrow"><div><div class="t">Gel Cleanser · Glycolic Acid · 6oz</div><div class="meta">Cleanser · Exfoliating Acid Gel platform</div></div><div><b>$25</b> <span class="meta">/ MSRP $44</span></div><div class="meta">~60% margin</div><span class="badge2 b-draft">Draft</span></div>
+        <div class="row prodrow"><div><div class="t">Cream Cleanser 002 · 6oz</div><div class="meta">Cleanser · Prebiotic Barrier platform</div></div><div><b>$22</b> <span class="meta">/ MSRP $38</span></div><div class="meta">~60% margin</div><span class="badge2 b-draft">Draft</span></div>
+        <div class="row prodrow"><div><div class="t">PDRN Pink Collagen Serum</div><div class="meta">K-Beauty · refined Medicube · feel-match</div></div><div><b>$16</b> <span class="meta">/ MSRP $32</span></div><div class="meta">~70% margin</div><span class="badge2 b-draft">Draft</span></div>
+        <div class="row prodrow"><div><div class="t">Pore-Refining Toner Pads</div><div class="meta">K-Beauty · refined Medicube Zero Pore</div></div><div><b>$15</b> <span class="meta">/ MSRP $30</span></div><div class="meta">~65% margin</div><span class="badge2 b-draft">Draft</span></div>
+        <div class="row prodrow"><div><div class="t">1oz Frosted Glass Bottle · Dropper</div><div class="meta">Packaging · à la carte component</div></div><div><b>$1.30</b> <span class="meta">/ each</span></div><div class="meta">2–3× cost</div><span class="badge2 b-draft">Draft</span></div>
+        <div class="row prodrow"><div><div class="t">L-Ascorbic Acid (Vitamin C)</div><div class="meta">Raw material · cosmetic-grade active</div></div><div><b>$62</b> <span class="meta">/ kg</span></div><div class="meta">—</div><span class="badge2 b-draft">Draft</span></div>
+      </div>
+      <div class="note">💡 All <b>Draft</b> right now — nothing is public. Flip to <b>Active</b> per product when you're ready to sell it. This mirrors Shopify <b>Products</b>; ~30 priced, ~20 more specced in the Drive.</div>
+    </section>
+
+    <!-- PAYMENTS -->
+    <section class="view" id="v-payments">
+      <div class="head"><div><h1>Payments</h1><p>Wire-first, financing available, no terms extended by you.</p></div></div>
+      <div class="setgrid">
+        <div class="setitem"><h4>Wire / ACH bank transfer</h4><p>Default for wholesale. Order holds as "payment pending" until you confirm funds, then ships. Zero fees.</p><span class="pill on">● Primary</span></div>
+        <div class="setitem"><h4>Affirm — pay over time</h4><p>Buyer pays monthly; you're paid in full up front via Shop Pay Installments. The bank carries the risk.</p><span class="pill on">● On</span></div>
+        <div class="setitem"><h4>Credit card</h4><p>Available for anyone who'll accept the ~2.9% fee. Not the default.</p><span class="pill on">● On</span></div>
+        <div class="setitem"><h4>Net terms from TCF</h4><p>You never extend your own credit. A bank does, so you're always paid before product ships.</p><span class="pill off">● Off — by design</span></div>
+      </div>
+      <div class="note">💡 In real Shopify: Wire = a custom <b>manual payment method</b>; Affirm = <b>Shop Pay Installments</b>; larger invoices can use Resolve/Balance financing. All real, all doable on your current plan.</div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="view" id="v-settings">
+      <div class="head"><div><h1>Settings</h1><p>Who's on the team, and the apps that power the portals.</p></div></div>
+      <div class="panel">
+        <div class="ph"><h3>Staff logins</h3><span class="sub">your back-office team</span></div>
+        <div class="row practrow"><div><div class="t">Pauly Lieber</div><div class="meta">Owner · full access</div></div><span class="badge2 b-active">Active</span><button class="btn sm">Manage</button></div>
+        <div class="row practrow"><div><div class="t">Rashell Klavinger</div><div class="meta">Sales &amp; Operations · orders, quotes, practices</div></div><span class="badge2 b-active">Active</span><button class="btn sm">Manage</button></div>
+        <div class="row practrow"><div><div class="t">Katherine Fox</div><div class="meta">Design · products &amp; media only</div></div><span class="badge2 b-active">Active</span><button class="btn sm">Manage</button></div>
+        <div class="row practrow"><div><div class="t">Sanders (GPS Research)</div><div class="meta">Formulator · products &amp; quotes</div></div><span class="badge2 b-active">Active</span><button class="btn sm">Manage</button></div>
+      </div>
+      <div class="setgrid">
+        <div class="setitem"><h4>B2B wholesale app</h4><p>Powers the practice login, per-practice pricing, MOQs, reorder &amp; quotes.</p><span class="pill off">● Install on go-live</span></div>
+        <div class="setitem"><h4>Domain</h4><p>thecosmeticformulary.com → the storefront.</p><span class="pill off">● Connect on go-live</span></div>
+        <div class="setitem"><h4>Subscriptions</h4><p>Optional — patient auto-reorder when a practice wants it.</p><span class="pill off">● Later</span></div>
+      </div>
+      <div class="note">💡 Staff logins = Shopify <b>Users &amp; permissions</b>. This back office <i>is</i> your Shopify Admin — this prototype just shows it tuned to how you actually work.</div>
+    </section>
+  </main>
+</div>
+
+<script>
+  document.querySelectorAll('.nav').forEach(n=>n.onclick=()=>{
+    document.querySelectorAll('.nav').forEach(x=>x.classList.remove('on'));
+    n.classList.add('on');
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+    document.getElementById('v-'+n.dataset.v).classList.add('on');
+    window.scrollTo(0,0);
+  });
+  document.querySelectorAll('.filt').forEach(f=>f.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{
+    f.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');
+  }));
+  window.confirmWire=(b)=>{const r=b.closest('.row');r.querySelector('.badge2').className='badge2 b-paid';r.querySelector('.badge2').textContent='Paid · released';b.className='btn sm done';b.textContent='Released ✓';};
+  window.ship=(b)=>{const r=b.closest('.row');r.querySelector('.badge2').className='badge2 b-ship';r.querySelector('.badge2').textContent='Shipped';b.className='btn sm done';b.textContent='Shipped ✓';};
+  window.approve=(b)=>{const r=b.closest('.row');r.querySelector('.badge2').className='badge2 b-active';r.querySelector('.badge2').textContent='Approved';b.className='btn sm done';b.textContent='Approved ✓';};
+</script>
+</body>
+</html>

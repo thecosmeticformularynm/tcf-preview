@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shopify Build Plan — The Cosmetic Formulary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#faf7f2;--bg-2:#f2ece2;--ink:#1d1c1a;--ink-soft:#54514b;--line:#e2dacd;--paper:#fffdfa;--accent:#3a4b3f;--accent-2:#7c8a6f;--gold:#a98a5c;--ok:#3a6b4a;--radius:16px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.6}
+  h1,h2,h3,h4{font-family:'Fraunces','Times New Roman',serif;font-weight:400;letter-spacing:-.01em;line-height:1.14}
+  a{color:var(--accent)}
+  .wrap{max-width:860px;margin:0 auto;padding:0 26px}
+  .eyebrow{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-2);font-weight:600}
+  header{padding:64px 0 40px;border-bottom:1px solid var(--line);background:var(--paper)}
+  header h1{font-size:clamp(2.2rem,5vw,3.2rem);margin:.3em 0}
+  header p{color:var(--ink-soft);font-size:1.08rem;max-width:40em}
+  .tldr{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;margin:28px 0}
+  .tldr b{font-family:'Fraunces';font-size:1.05rem}
+  .tldr ul{margin:.6em 0 0 1.1em;font-size:.95rem;color:var(--ink-soft)}
+  .tldr li{margin:.3em 0}
+  section.phase{padding:38px 0;border-bottom:1px solid var(--line)}
+  .pnum{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;font-family:'Fraunces';font-size:1rem;margin-bottom:10px}
+  section.phase h2{font-size:1.7rem;margin-bottom:.15em}
+  section.phase>.wrap>p.sub{color:var(--ink-soft);margin-bottom:18px}
+  .step{display:flex;gap:13px;padding:11px 0;border-top:1px solid var(--line);align-items:flex-start}
+  .step:first-of-type{border-top:none}
+  .step .box{flex:none;width:20px;height:20px;border:1.5px solid var(--accent-2);border-radius:6px;margin-top:3px}
+  .step .body{font-size:.95rem}
+  .step .body b{font-weight:600}
+  .step .body .path{font-family:ui-monospace,Menlo,monospace;font-size:.82rem;background:var(--bg-2);border:1px solid var(--line);border-radius:6px;padding:.1em .5em;color:var(--ink)}
+  .note{background:#eef2ea;border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.9rem;color:var(--ink-soft);margin:14px 0}
+  .note b{color:var(--ink)}
+  .tag{display:inline-block;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:.25em .6em;border-radius:100px;vertical-align:middle;margin-left:8px}
+  .t-me{background:#e6efe7;color:var(--ok)}
+  .t-you{background:#f4ead8;color:var(--gold)}
+  .t-app{background:#e7ecf2;color:#3a4f6b}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.9rem}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+  th{font-family:'Inter';font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+  td b{font-weight:600}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-soft);margin:8px 0 22px}
+  footer{padding:40px 0 70px;color:var(--ink-soft);font-size:.9rem}
+  .cost b{font-family:'Fraunces'}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <span class="eyebrow">Implementation plan · for when you say “go”</span>
+    <h1>Building this on Shopify</h1>
+    <p>Exactly how the prototype becomes a live Shopify store — every feature mapped to a real setting or app, in the order we'd do it. Built on your existing store (<b>clean-beauty-labs-3</b>), app-first, no Shopify Plus.</p>
+    <div class="legend">
+      <span><span class="tag t-me">I do it</span> via your Shopify access</span>
+      <span><span class="tag t-you">Needs you</span> a decision or detail</span>
+      <span><span class="tag t-app">App</span> a paid add-on</span>
+    </div>
+    <div class="tldr">
+      <b>The whole thing in one breath:</b>
+      <ul>
+        <li>One store, five collections — raw materials, packaging, white-label, contract mfg, formulation.</li>
+        <li>A B2B app gives approved practices a login with <b>their</b> pricing, MOQs, and reorder.</li>
+        <li>Payments: <b>wire/ACH first</b> (free), <b>Affirm</b> for pay-over-time, card optional. <b>You never extend terms.</b></li>
+        <li>Your team's back office is the Shopify admin — confirm the wire, print the label, ship.</li>
+        <li>The design you've been clicking gets rebuilt as the real theme.</li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<section class="phase"><div class="wrap">
+  <span class="pnum">1</span>
+  <h2>Catalog &amp; structure <span class="tag t-me">I do it</span></h2>
+  <p class="sub">Make the one store hold every layer of what you sell.</p>
+  <div class="step"><span class="box"></span><div class="body">Create 5 collections in <span class="path">Products → Collections</span>: <b>White-Label Formulas</b>, <b>Raw Materials &amp; Actives</b>, <b>Packaging &amp; Components</b>, <b>Contract Manufacturing</b>, <b>Formulation Services</b>.</div></div>
+  <div class="step"><span class="box"></span><div class="body">Add <b>raw material</b> products — variants priced by weight (per kg / 100g), e.g. L-Ascorbic, Niacinamide, HA.</div></div>
+  <div class="step"><span class="box"></span><div class="body">Add <b>packaging</b> products — bottles, tops, jars, pumps, cartons; variants by size/finish.</div></div>
+  <div class="step"><span class="box"></span><div class="body">Add <b>service</b> products — “Formulation Development Fee” and “Contract Manufacturing” as quote-based items.</div></div>
+  <div class="step"><span class="box"></span><div class="body">Your 29 white-label SKUs are already there — just tag and slot them into the collection.</div></div>
+  <div class="note">Your real <b>per-unit wholesale prices, packaging SKUs, and raw-material costs</b> are the one thing I need from you to fill this in. <span class="tag t-you">Needs you</span></div>
+</div></section>
+
+<section class="phase"><div class="wrap">
+  <span class="pnum">2</span>
+  <h2>The wholesale engine <span class="tag t-app">App</span></h2>
+  <p class="sub">Self-serve login, your pricing, MOQs, reorder, quotes — without Shopify Plus.</p>
+  <div class="step"><span class="box"></span><div class="body">Install a <b>B2B app</b>. Recommended: <b>SparkLayer</b> (full B2B storefront + quotes) or <b>Wholesale Gorilla</b> / <b>BSS B2B</b> for a lighter start. <span class="tag t-you">Needs you</span> to approve the subscription.</div></div>
+  <div class="step"><span class="box"></span><div class="body"><b>Registration + approval</b> — practices request access; you approve. Only approved accounts see wholesale pricing.</div></div>
+  <div class="step"><span class="box"></span><div class="body"><b>Price lists / customer groups</b> — each practice sees their negotiated price ($14, etc.), hidden from the public.</div></div>
+  <div class="step"><span class="box"></span><div class="body"><b>MOQ &amp; increments per product</b> — tiered minimums (“min 250, by 250”), exactly like the prototype.</div></div>
+  <div class="step"><span class="box"></span><div class="body"><b>Reorder + Request-a-Quote</b> — saved lists for fast reorders; quote requests for custom formulation / contract-mfg projects.</div></div>
+</div></section>
+
+<section class="phase"><div class="wrap">
+  <span class="pnum">3</span>
+  <h2>Payments — wire-first, no terms <span class="tag t-me">I do it</span></h2>
+  <p class="sub">Built around how your buyers actually pay, and protecting your cash.</p>
+  <div class="step"><span class="box"></span><div class="body"><b>Wire / ACH</b> — add a custom manual method in <span class="path">Settings → Payments → Manual methods</span> with your bank details. Orders arrive <b>Payment pending</b>; you mark paid when funds land, then ship. <b>Zero fees.</b></div></div>
+  <div class="step"><span class="box"></span><div class="body"><b>Affirm (pay over time)</b> — turn on <b>Shop Pay Installments</b> in <span class="path">Settings → Payments</span>. The buyer pays monthly; <b>you're paid in full up front</b>, Affirm carries it. <span class="tag t-you">Needs you</span> to confirm Shopify Payments details.</div></div>
+  <div class="step"><span class="box"></span><div class="body"><b>Bigger invoices</b> — optionally add a B2B financing provider (<b>Resolve</b>, <b>Balance</b>, or <b>Wisetack</b>) that pays you upfront and assumes the risk. <span class="tag t-app">App</span></div></div>
+  <div class="step"><span class="box"></span><div class="body"><b>Card</b> — kept on for anyone who'll accept the ~2.9% fee. Not the default.</div></div>
+  <div class="note"><b>We never enable net terms from you.</b> A bank extends the credit, not The Cosmetic Formulary — so you're always paid before product leaves.</div>
+</div></section>
+
+<section class="phase"><div class="wrap">
+  <span class="pnum">4</span>
+  <h2>The website <span class="tag t-me">I do it</span></h2>
+  <p class="sub">Turn the prototype you've been clicking into the real, working storefront.</p>
+  <div class="step"><span class="box"></span><div class="body"><b>Rebuild the design as a Shopify theme</b> — the hero, supply stack, services, catalog, and CTA become real theme sections wired to live products and cart.</div></div>
+  <div class="step"><span class="box"></span><div class="body"><b>Wholesale login</b> points to <span class="path">/account/login</span>; the B2B app renders the logged-in portal (reorder, quotes, invoices) you saw.</div></div>
+  <div class="step"><span class="box"></span><div class="body">Connect your domain (<b>thecosmeticformulary.com</b>) in <span class="path">Settings → Domains</span>. <span class="tag t-you">Needs you</span> to point the domain / share registrar access.</div></div>
+</div></section>
+
+<section class="phase"><div class="wrap">
+  <span class="pnum">5</span>
+  <h2>Your back office <span class="tag t-me">I do it</span></h2>
+  <p class="sub">The login for your team — and it already exists.</p>
+  <div class="step"><span class="box"></span><div class="body">Add your 3 employees as <b>staff</b> in <span class="path">Settings → Users and permissions</span>, with role-based access. This <b>is</b> the back office: <span class="path">admin.shopify.com</span>.</div></div>
+  <div class="step"><span class="box"></span><div class="body">The daily loop: <b>Orders</b> → new wholesale order or quote → confirm wire received → print label → ship. <b>Customers</b> → approve practices, set their pricing.</div></div>
+  <div class="step"><span class="box"></span><div class="body"><b>Optional ops dashboard</b> — I can build a one-screen “what's due / what to rebatch / run-rate” view on top of Shopify, tied into your Formulary OS. <span class="tag t-me">I do it</span></div></div>
+</div></section>
+
+<section class="phase"><div class="wrap">
+  <span class="pnum">6</span>
+  <h2>Patient e-commerce <span class="tag t-app">App</span> <span style="font-size:.7rem;color:var(--ink-soft)">— optional, later</span></h2>
+  <p class="sub">Only when a practice wants their patients reordering online.</p>
+  <div class="step"><span class="box"></span><div class="body">Standard storefront + a <b>Subscriptions</b> app (Shopify Subscriptions is free; Recharge for more). Turn on per practice, no rebuild.</div></div>
+</div></section>
+
+<section class="phase"><div class="wrap">
+  <h2>What it costs to run</h2>
+  <table>
+    <tr><th>Item</th><th>Cost</th><th></th></tr>
+    <tr><td>Shopify plan (current)</td><td class="cost"><b>~$39–79</b>/mo</td><td>already paying</td></tr>
+    <tr><td>B2B app (self-serve wholesale)</td><td class="cost"><b>~$50–200</b>/mo</td><td>the one new recurring cost</td></tr>
+    <tr><td>Wire / ACH payments</td><td class="cost"><b>Free</b></td><td>native</td></tr>
+    <tr><td>Affirm / Shop Pay Installments</td><td class="cost"><b>Free to add</b></td><td>you're paid in full</td></tr>
+    <tr><td>B2B financing (optional)</td><td class="cost"><b>% per order</b></td><td>only if used</td></tr>
+    <tr><td>The theme &amp; setup</td><td class="cost"><b>My time</b></td><td>not a bill</td></tr>
+  </table>
+  <div class="note">No Shopify Plus (~$2,300/mo) until your order volume clearly earns it — and moving up then is a swap, not a rebuild.</div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <b>When you say “go,”</b> I start at Phase 1 in your Shopify and work down — you only step in for the few <span class="tag t-you">Needs you</span> items (pricing, bank details, app approval, domain). Nothing in this plan touches your live store until you say so.
+  </div>
+</footer>
+</body>
+</html>

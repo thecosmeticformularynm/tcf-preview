@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Cosmetic Formulary — Your Private-Label Skincare, End to End</title>
+<meta name="description" content="The Cosmetic Formulary builds, manufactures, and fulfills private-label professional skincare for aesthetic practices — formulation, manufacturing, packaging, design, regulatory, fulfillment, reordering, analytics, and patient-facing e-commerce." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#faf7f2;
+    --bg-2:#f2ece2;
+    --ink:#1d1c1a;
+    --ink-soft:#54514b;
+    --line:#e2dacd;
+    --paper:#fffdfa;
+    --accent:#3a4b3f;      /* botanical clinical green */
+    --accent-2:#7c8a6f;
+    --blush:#c9a896;
+    --gold:#a98a5c;
+    --radius:18px;
+    --shadow:0 1px 2px rgba(40,35,25,.04), 0 12px 40px rgba(40,35,25,.06);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Fraunces','Times New Roman',serif;font-weight:400;line-height:1.12;letter-spacing:-.01em}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{font-family:'Inter';font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-2);font-weight:600}
+  .btn{display:inline-flex;align-items:center;gap:.5em;padding:.85em 1.6em;border-radius:100px;font-size:.92rem;font-weight:500;
+    border:1px solid var(--ink);background:var(--ink);color:var(--bg);transition:.25s;cursor:pointer}
+  .btn:hover{background:transparent;color:var(--ink)}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{border-color:var(--ink)}
+  .btn.light{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+  .btn.light:hover{background:transparent;color:var(--bg);border-color:var(--bg)}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand{display:flex;align-items:center;gap:.7em;font-family:'Fraunces';font-size:1.18rem;letter-spacing:.01em}
+  .brand .mark{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font-size:.8rem;font-weight:500}
+  .navlinks{display:flex;gap:2em;align-items:center;font-size:.9rem;color:var(--ink-soft)}
+  .navlinks a:hover{color:var(--ink)}
+  .navlinks .btn{color:var(--bg)}
+  .menu-toggle{display:none;background:none;border:none;font-size:1.5rem;cursor:pointer}
+  @media(max-width:860px){.navlinks{display:none}.menu-toggle{display:block}}
+
+  /* HERO */
+  .hero{position:relative;overflow:hidden;padding:clamp(70px,11vw,140px) 0 clamp(60px,8vw,110px)}
+  .hero::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(1100px 520px at 78% -8%, #e7eee2 0%, transparent 60%),
+    radial-gradient(820px 460px at 8% 108%, #f3e6dd 0%, transparent 55%);z-index:0}
+  .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);margin:.35em 0 .45em}
+  .hero h1 em{font-style:italic;color:var(--accent)}
+  .hero p.lead{font-size:1.12rem;color:var(--ink-soft);max-width:30em;margin-bottom:1.8em}
+  .hero-cta{display:flex;gap:.8em;flex-wrap:wrap}
+  .hero-meta{margin-top:2.4em;display:flex;gap:2.2em;flex-wrap:wrap}
+  .hero-meta div{}
+  .hero-meta b{font-family:'Fraunces';font-size:1.7rem;font-weight:500;display:block}
+  .hero-meta span{font-size:.78rem;color:var(--ink-soft);letter-spacing:.04em}
+  /* hero visual */
+  .hero-art{position:relative;aspect-ratio:4/4.4;border-radius:24px;background:linear-gradient(150deg,#46583f,#2c3a2e);box-shadow:var(--shadow);overflow:hidden;display:grid;place-items:center}
+  .hero-art .bottle{width:34%;aspect-ratio:.42;border-radius:14px 14px 10px 10px;background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,.78));position:relative;box-shadow:0 30px 60px rgba(0,0,0,.3)}
+  .hero-art .bottle::before{content:"";position:absolute;top:-13%;left:34%;width:32%;height:14%;background:#1d1c1a;border-radius:4px 4px 0 0}
+  .hero-art .bottle .lbl{position:absolute;inset:auto 12% 16% 12%;height:42%;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;gap:5px;padding-top:8px}
+  .hero-art .bottle .lbl i{display:block;height:3px;border-radius:2px;background:var(--accent);opacity:.55}
+  .hero-art .bottle .lbl i:nth-child(1){width:54%}
+  .hero-art .bottle .lbl i:nth-child(2){width:78%;opacity:.3}
+  .hero-art .bottle .lbl i:nth-child(3){width:38%;opacity:.3}
+  .hero-art .tagchip{position:absolute;top:8%;left:8%;background:rgba(255,253,250,.92);color:var(--ink);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.5em 1em;border-radius:100px;font-weight:600}
+  .hero-art .tagchip.b{top:auto;left:auto;bottom:8%;right:8%}
+  @media(max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px}.hero-art{max-width:360px;margin:0 auto}}
+
+  /* MARQUEE / trusted */
+  .trusted{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper)}
+  .trusted .wrap{display:flex;align-items:center;gap:30px;padding:18px 28px;flex-wrap:wrap;justify-content:center}
+  .trusted span{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;opacity:.8}
+  .trusted .ref{font-family:'Fraunces';font-size:1.05rem;color:var(--ink);opacity:.62}
+
+  /* SECTION */
+  section{padding:clamp(64px,9vw,118px) 0}
+  .sec-head{max-width:46em}
+  .sec-head h2{font-size:clamp(2rem,4.4vw,3.2rem);margin:.3em 0 .5em}
+  .sec-head p{color:var(--ink-soft);font-size:1.06rem}
+  .center{margin-left:auto;margin-right:auto;text-align:center}
+
+  /* SERVICES GRID */
+  #services{background:var(--bg-2)}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:54px}
+  @media(max-width:880px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.svc-grid{grid-template-columns:1fr}}
+  .svc{background:var(--paper);padding:34px 30px;min-height:218px;transition:.3s;position:relative}
+  .svc:hover{background:var(--accent);color:var(--bg)}
+  .svc:hover .svc-num,.svc:hover p{color:rgba(255,255,255,.78)}
+  .svc:hover .svc-ico{border-color:rgba(255,255,255,.4)}
+  .svc-num{font-family:'Fraunces';font-size:.82rem;color:var(--accent-2);letter-spacing:.1em}
+  .svc-ico{width:42px;height:42px;border:1px solid var(--line);border-radius:11px;display:grid;place-items:center;margin:16px 0 14px}
+  .svc-ico svg{width:21px;height:21px}
+  .svc h3{font-size:1.35rem;margin-bottom:.35em}
+  .svc p{font-size:.92rem;color:var(--ink-soft)}
+
+  /* PROCESS */
+  .steps{counter-reset:s;margin-top:50px;display:grid;gap:0}
+  .step{display:grid;grid-template-columns:90px 1fr;gap:30px;padding:30px 0;border-top:1px solid var(--line);align-items:start}
+  .step:last-child{border-bottom:1px solid var(--line)}
+  .step .n{font-family:'Fraunces';font-size:2.4rem;color:var(--accent);font-weight:300}
+  .step h3{font-size:1.5rem;margin-bottom:.3em}
+  .step p{color:var(--ink-soft);max-width:48em}
+  @media(max-width:600px){.step{grid-template-columns:54px 1fr;gap:18px}.step .n{font-size:1.7rem}}
+
+  /* CATALOG */
+  #catalog{background:var(--paper)}
+  .cat-controls{display:flex;gap:10px;flex-wrap:wrap;margin:38px 0 30px;align-items:center}
+  .chip{border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);padding:.5em 1.05em;border-radius:100px;font-size:.84rem;cursor:pointer;transition:.2s;font-family:inherit}
+  .chip:hover{border-color:var(--ink);color:var(--ink)}
+  .chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .cat-count{margin-left:auto;font-size:.82rem;color:var(--ink-soft)}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  @media(max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:440px){.grid{grid-template-columns:1fr}}
+  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--paper);display:flex;flex-direction:column;transition:.25s}
+  .card:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
+  .card .ph{aspect-ratio:1/1;position:relative;display:grid;place-items:center;overflow:hidden}
+  .card .ph .b2{width:38%;aspect-ratio:.46;border-radius:9px 9px 7px 7px;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.8));box-shadow:0 14px 26px rgba(0,0,0,.16);position:relative}
+  .card .ph .b2::before{content:"";position:absolute;top:-12%;left:36%;width:28%;height:13%;background:rgba(29,28,26,.85);border-radius:3px 3px 0 0}
+  .card .ph .b2 i{position:absolute;left:18%;right:18%;top:42%;height:2px;border-radius:2px;background:var(--accent);opacity:.5}
+  .card .ph .b2 i:nth-child(2){top:54%;width:60%;opacity:.25}
+  .card .cat-tag{position:absolute;top:12px;left:12px;background:rgba(255,253,250,.9);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;padding:.35em .7em;border-radius:100px;font-weight:600;color:var(--ink-soft)}
+  .card .body{padding:16px 17px 18px;display:flex;flex-direction:column;flex:1}
+  .card h4{font-size:1.04rem;line-height:1.2;margin-bottom:.3em}
+  .card .ref{font-size:.74rem;color:var(--accent-2);font-weight:500;margin-bottom:.8em}
+  .card .ref b{color:var(--ink-soft);font-weight:500}
+  .card .tiers{margin-top:auto;border-top:1px solid var(--line);padding-top:10px;display:flex;flex-direction:column;gap:3px;font-size:.8rem}
+  .card .tiers .row{display:flex;justify-content:space-between;color:var(--ink-soft)}
+  .card .tiers .row b{color:var(--ink);font-weight:600}
+  .card .shopbtn{margin-top:12px;text-align:center;border:1px solid var(--ink);border-radius:100px;padding:.55em;font-size:.82rem;font-weight:500;transition:.2s}
+  .card .shopbtn:hover{background:var(--ink);color:var(--bg)}
+
+  /* color rotation for placeholders */
+  .g0{background:linear-gradient(150deg,#e9efe4,#cfdcc6)} .g1{background:linear-gradient(150deg,#f3e7df,#e6cdbd)}
+  .g2{background:linear-gradient(150deg,#e6ebef,#cdd6df)} .g3{background:linear-gradient(150deg,#efeae0,#ddd2bd)}
+  .g4{background:linear-gradient(150deg,#eee4ec,#d8c4d6)} .g5{background:linear-gradient(150deg,#e3edec,#c4dad6)}
+
+  /* COMPLIANCE / split */
+  #regulatory{background:var(--accent);color:#eef1ea}
+  #regulatory .eyebrow{color:#aebfa1}
+  #regulatory .split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  #regulatory h2{font-size:clamp(2rem,4.2vw,3rem);margin:.3em 0 .6em;color:#fff}
+  #regulatory p.lead{color:#d4ddcd;font-size:1.05rem}
+  .reg-list{display:grid;gap:2px;margin-top:10px}
+  .reg-item{display:flex;gap:16px;padding:18px 0;border-top:1px solid rgba(255,255,255,.16)}
+  .reg-item:last-child{border-bottom:1px solid rgba(255,255,255,.16)}
+  .reg-item .ck{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,255,255,.4);display:grid;place-items:center;margin-top:2px}
+  .reg-item .ck svg{width:13px;height:13px}
+  .reg-item h4{color:#fff;font-size:1.12rem;margin-bottom:.15em;font-family:'Inter';font-weight:600;letter-spacing:0}
+  .reg-item p{color:#c2ccba;font-size:.9rem}
+  @media(max-width:820px){#regulatory .split{grid-template-columns:1fr;gap:36px}}
+
+  /* ECOMMERCE banner */
+  #ecom .split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  #ecom .panel{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:34px}
+  .phone{max-width:300px;margin:0 auto;border:9px solid #1d1c1a;border-radius:34px;overflow:hidden;background:var(--paper);box-shadow:var(--shadow)}
+  .phone .pbar{background:var(--accent);color:#fff;padding:14px 16px;font-family:'Fraunces';font-size:.95rem;display:flex;justify-content:space-between;align-items:center}
+  .phone .pbar small{font-family:'Inter';font-size:.62rem;opacity:.8;letter-spacing:.1em;text-transform:uppercase}
+  .phone .prod{display:flex;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);align-items:center}
+  .phone .prod .mini{width:46px;height:46px;border-radius:9px;flex:none}
+  .phone .prod .t{font-size:.82rem;font-weight:600;line-height:1.2}
+  .phone .prod .pr{font-size:.78rem;color:var(--ink-soft)}
+  .phone .prod .add{margin-left:auto;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:1rem;flex:none}
+  .phone .pcheck{padding:14px 16px;text-align:center;background:var(--bg)}
+  .phone .pcheck .b{background:var(--ink);color:#fff;border-radius:100px;padding:.6em;font-size:.8rem;font-weight:600}
+  @media(max-width:820px){#ecom .split{grid-template-columns:1fr;gap:40px}}
+
+  /* CTA */
+  #contact{background:var(--bg-2)}
+  .cta-box{background:var(--ink);color:var(--bg);border-radius:26px;padding:clamp(40px,6vw,72px);text-align:center;position:relative;overflow:hidden}
+  .cta-box::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 80% -20%,rgba(124,138,111,.4),transparent 60%)}
+  .cta-box>*{position:relative}
+  .cta-box h2{font-size:clamp(2rem,4.6vw,3.4rem);margin-bottom:.4em;color:#fff}
+  .cta-box p{color:rgba(255,255,255,.78);max-width:34em;margin:0 auto 2em;font-size:1.05rem}
+  .cta-box .hero-cta{justify-content:center}
+  .cta-box .mailto{font-family:'Fraunces';font-size:1.15rem;color:#fff;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:2px}
+
+  /* FOOTER */
+  footer{background:var(--ink);color:rgba(255,255,255,.7);padding:60px 0 36px}
+  footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+  footer .brand{color:#fff}footer .brand .mark{border-color:#fff;color:#fff}
+  footer h5{color:#fff;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:1em;font-weight:600}
+  footer a{display:block;color:rgba(255,255,255,.62);font-size:.9rem;padding:.28em 0;transition:.2s}
+  footer a:hover{color:#fff}
+  footer .colofon{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.14);margin-top:30px;padding-top:24px;display:flex;justify-content:space-between;font-size:.8rem;color:rgba(255,255,255,.5);flex-wrap:wrap;gap:10px}
+  @media(max-width:760px){footer .wrap{grid-template-columns:1fr 1fr}}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<div style="background:#a98a5c;color:#fff;text-align:center;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:7px;font-weight:600;font-family:'Inter',sans-serif">Test mode · the public storefront — <a href="start.html" style="color:#fff;text-decoration:underline">back to test hub</a></div>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mark">CF</span> The&nbsp;Cosmetic&nbsp;Formulary</a>
+    <div class="navlinks">
+      <a href="#services">What we do</a>
+      <a href="#process">How it works</a>
+      <a href="#catalog">Catalog</a>
+      <a href="#ecom">For practices</a>
+      <a href="https://clean-beauty-labs-3.myshopify.com/account/login" target="_blank" rel="noopener">Wholesale login</a>
+      <a class="btn" href="#contact">Start your line</a>
+    </div>
+    <button class="menu-toggle" onclick="document.querySelector('.navlinks').style.display = (getComputedStyle(document.querySelector('.navlinks')).display==='none'?'flex':'none')">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">White-label skincare · made for your practice</span>
+      <h1>The products your practice already trusts — <em>refined, and made yours.</em></h1>
+      <p class="lead">We make professional-grade skincare under <em>your</em> label — formulated, manufactured, packaged, and registered, then shipped to you by the run. You stock it, sell it in your practice at your price, and reorder by the case. We handle everything behind the bottle.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#contact">Start your line →</a>
+        <a class="btn ghost" href="#catalog">Browse the catalog</a>
+      </div>
+      <div class="hero-meta">
+        <div><b>29+</b><span>Refined formulas, ready to brand</span></div>
+        <div><b>~3×</b><span>Typical practice markup</span></div>
+        <div><b>50</b><span>Unit minimum runs</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <span class="tagchip">Refined 2026</span>
+      <div class="bottle"><div class="lbl"><i></i><i></i><i></i></div></div>
+      <span class="tagchip b">Your label here</span>
+    </div>
+  </div>
+</header>
+
+<!-- TRUSTED -->
+<div class="trusted">
+  <div class="wrap">
+    <span>Refined chemistry of the lines you know</span>
+    <span class="ref">SkinCeuticals</span>
+    <span class="ref">ZO Skin Health</span>
+    <span class="ref">SkinMedica</span>
+    <span class="ref">iS Clinical</span>
+    <span class="ref">Dermalogica</span>
+    <span class="ref">Obagi</span>
+  </div>
+</div>
+
+<!-- SUPPLY STACK -->
+<section id="supply" style="background:var(--paper)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What you can order</span>
+      <h2>From raw material to finished brand.</h2>
+      <p>Buy any layer on its own — a kilo of actives, a case of bottles, a single production run — or hand us the whole build. One partner, one invoice, and you decide how far we take it.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:48px" class="reveal">
+      <div style="border:1px solid var(--line);border-radius:16px;padding:26px;background:var(--bg)">
+        <div class="thumb g5" style="width:38px;height:38px;border-radius:10px;margin-bottom:14px"></div>
+        <span class="eyebrow" style="font-size:.64rem">À la carte</span>
+        <h3 style="font-size:1.3rem;margin:.25em 0 .35em">Raw materials &amp; actives</h3>
+        <p style="font-size:.9rem;color:var(--ink-soft)">Cosmetic-grade ingredients and proven actives, sold by the kilo to formulators and labs.</p>
+      </div>
+      <div style="border:1px solid var(--line);border-radius:16px;padding:26px;background:var(--bg)">
+        <div class="thumb g3" style="width:38px;height:38px;border-radius:10px;margin-bottom:14px"></div>
+        <span class="eyebrow" style="font-size:.64rem">À la carte</span>
+        <h3 style="font-size:1.3rem;margin:.25em 0 .35em">Packaging &amp; components</h3>
+        <p style="font-size:.9rem;color:var(--ink-soft)">Bottles, tops, jars, pumps, and boxes — sourced and sold on their own, no formula required.</p>
+      </div>
+      <div style="border:1px solid var(--line);border-radius:16px;padding:26px;background:var(--bg)">
+        <div class="thumb g0" style="width:38px;height:38px;border-radius:10px;margin-bottom:14px"></div>
+        <span class="eyebrow" style="font-size:.64rem">Service</span>
+        <h3 style="font-size:1.3rem;margin:.25em 0 .35em">Custom formulation</h3>
+        <p style="font-size:.9rem;color:var(--ink-soft)">A new formula developed to your brief. Dev fee quoted up front and credited toward your first run.</p>
+      </div>
+      <div style="border:1px solid var(--line);border-radius:16px;padding:26px;background:var(--bg)">
+        <div class="thumb g2" style="width:38px;height:38px;border-radius:10px;margin-bottom:14px"></div>
+        <span class="eyebrow" style="font-size:.64rem">Full service</span>
+        <h3 style="font-size:1.3rem;margin:.25em 0 .35em">Contract manufacturing</h3>
+        <p style="font-size:.9rem;color:var(--ink-soft)">Bring your own formula; we batch, fill, label, and finish it at scale under GMP-aligned process.</p>
+      </div>
+      <div style="border:1px solid var(--line);border-radius:16px;padding:26px;background:var(--bg)">
+        <div class="thumb g1" style="width:38px;height:38px;border-radius:10px;margin-bottom:14px"></div>
+        <span class="eyebrow" style="font-size:.64rem">Ready to brand</span>
+        <h3 style="font-size:1.3rem;margin:.25em 0 .35em">White-label catalog</h3>
+        <p style="font-size:.9rem;color:var(--ink-soft)">Our 29+ refined formulas, made under your label from just 50-unit runs — the fastest way to a shelf.</p>
+      </div>
+      <div style="border:1px solid var(--line);border-radius:16px;padding:26px;background:var(--bg)">
+        <div class="thumb g4" style="width:38px;height:38px;border-radius:10px;margin-bottom:14px"></div>
+        <span class="eyebrow" style="font-size:.64rem">Optional</span>
+        <h3 style="font-size:1.3rem;margin:.25em 0 .35em">Patient e-commerce</h3>
+        <p style="font-size:.9rem;color:var(--ink-soft)">A branded storefront where your patients reorder between visits — fulfilled by us, when you want it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">One partner, nine disciplines</span>
+      <h2>Everything it takes to put a skincare line on the shelf.</h2>
+      <p>Most brands stitch together a chemist, a factory, a packaging broker, a designer, a regulatory consultant, and a fulfillment house. We are all of them — under one roof, with one point of contact.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc reveal">
+        <span class="svc-num">01</span>
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/></svg></div>
+        <h3>Formulation</h3>
+        <p>Cosmetic chemists refine proven actives into stable, elegant, compliant formulas — or develop something entirely new to your brief.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-num">02</span>
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 21h18M5 21V8l5 3V8l5 3V5l4 2v14"/></svg></div>
+        <h3>Manufacturing</h3>
+        <p>Batched in a controlled, GMP-aligned facility with documented processes, QC checkpoints, and full lot traceability.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-num">03</span>
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 8l9-5 9 5-9 5-9-5zM3 8v8l9 5 9-5V8M12 13v8"/></svg></div>
+        <h3>Packaging</h3>
+        <p>Primary components, decoration, and secondary cartons sourced and matched to your tier — from sample vials to pro back-bar sizes.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-num">04</span>
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 19l7-7 3 3-7 7-3-3zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18M2 2l7.6 7.6"/></svg></div>
+        <h3>Design</h3>
+        <p>In-house creative builds your brand identity, label artwork, and unboxing — so the product looks as considered as it performs.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-num">05</span>
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9 12l2 2 4-4M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3z"/></svg></div>
+        <h3>Regulatory</h3>
+        <p>INCI labeling, claims review, MoCRA listing, and OTC/SPF drug pathways — handled so your line is sellable, not just shippable.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-num">06</span>
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7M5.5 19a2 2 0 1 0 0 .01M18.5 19a2 2 0 1 0 0 .01"/></svg></div>
+        <h3>Fulfillment</h3>
+        <p>Pick, pack, and ship to your practice, your patients, or both. Inventory held and dispatched so you never touch a box.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-num">07</span>
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5"/></svg></div>
+        <h3>Reordering</h3>
+        <p>Set-and-forget replenishment. We watch your run rate and re-batch before you sell out — or let you reorder in two clicks.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-num">08</span>
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 3v18h18M7 15l4-5 3 3 5-7"/></svg></div>
+        <h3>Analytics</h3>
+        <p>See what sells, to whom, and how often. Product velocity, reorder timing, and patient retention in one clear view.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-num">09</span>
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg></div>
+        <h3>Patient-facing e-commerce</h3>
+        <p><em>Optional.</em> When you want it, a branded storefront where your patients reorder between visits — your name, fulfilled by us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">From brief to back bar</span>
+      <h2>How a line comes together.</h2>
+      <p>A predictable path from the formula you point to, to product your patients can buy — typically inside a single quarter.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><div><h3>Choose your chemistry</h3><p>Start from our refined catalog of the professional formulas your patients already use, or bring your own concept. We confirm feasibility, actives, and tiers.</p></div></div>
+      <div class="step reveal"><div class="n">2</div><div><h3>Brand &amp; sample</h3><p>Our design team builds your label and identity while the lab produces sample units. You approve the look, the feel, and the performance in hand.</p></div></div>
+      <div class="step reveal"><div class="n">3</div><div><h3>Register &amp; batch</h3><p>We lock INCI and claims, handle MoCRA and any OTC/SPF registration, then manufacture your first run at a 50-unit minimum.</p></div></div>
+      <div class="step reveal"><div class="n">4</div><div><h3>Sell &amp; reorder</h3><p>Stock your back bar, open your patient storefront, and let analytics-driven replenishment keep you in stock without the guesswork.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATALOG -->
+<section id="catalog">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The refined catalog · 2026</span>
+      <h2>Formulas ready to wear your name.</h2>
+      <p>Every product below can be made under your own label, in a sample, retail, and pro / back-bar size. Prices shown are reference retail — what your patients pay. <strong>Your wholesale cost is quoted to your volume</strong>, with run minimums starting at just <strong>50 units</strong>. Approved practices see live wholesale pricing once logged in.</p>
+    </div>
+    <div class="cat-controls reveal" id="catControls"></div>
+    <div class="grid" id="catGrid"></div>
+  </div>
+</section>
+
+<!-- ECOMMERCE -->
+<section id="ecom">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <span class="eyebrow">For practices · wholesale reorder</span>
+        <h2 style="font-size:clamp(2rem,4.2vw,3rem);margin:.3em 0 .5em">Log in. Reorder the run.<br>We ship the case.</h2>
+        <p style="color:var(--ink-soft);font-size:1.05rem;margin-bottom:1.4em">Once you're an approved practice, you get a private login with <strong>your</strong> wholesale pricing. Reorder a full run in two clicks and we ship one bulk case to your door. You set your own retail and keep the markup — no per-unit packing, no middleman.</p>
+        <div class="reg-list" style="margin-top:6px">
+          <div style="display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--line)"><b style="font-family:'Fraunces';color:var(--accent)">→</b><span style="color:var(--ink-soft)">Private login — your wholesale pricing, hidden from the public</span></div>
+          <div style="display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--line)"><b style="font-family:'Fraunces';color:var(--accent)">→</b><span style="color:var(--ink-soft)">Reorder full runs in two clicks; one bulk shipment to your practice</span></div>
+          <div style="display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><b style="font-family:'Fraunces';color:var(--accent)">→</b><span style="color:var(--ink-soft)"><em>Optional:</em> add a patient-facing storefront so patients reorder online too</span></div>
+        </div>
+        <a class="btn" style="margin-top:1.6em" href="https://clean-beauty-labs-3.myshopify.com/account/login" target="_blank" rel="noopener">Wholesale login →</a>
+      </div>
+      <div class="reveal">
+        <div class="phone">
+          <div class="pbar">Wholesale Portal <small>Glow Derm · logged in</small></div>
+          <div class="prod"><div class="mini g0"></div><div><div class="t">Vitamin C CF Serum</div><div class="pr">50 units · <b style="color:var(--ink)">$14</b>/ea&nbsp;&nbsp;·&nbsp;&nbsp;you sell $45</div></div><div class="add">+</div></div>
+          <div class="prod"><div class="mini g3"></div><div><div class="t">Daily Power Defense</div><div class="pr">50 units · <b style="color:var(--ink)">$18</b>/ea&nbsp;&nbsp;·&nbsp;&nbsp;you sell $58</div></div><div class="add">+</div></div>
+          <div class="prod"><div class="mini g1"></div><div><div class="t">Mineral SPF 50+</div><div class="pr">50 units · <b style="color:var(--ink)">$9</b>/ea&nbsp;&nbsp;·&nbsp;&nbsp;you sell $28</div></div><div class="add">+</div></div>
+          <div class="pcheck"><div class="b">Place reorder · 150 units</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGULATORY -->
+<section id="regulatory">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <span class="eyebrow">Compliance, handled</span>
+        <h2>Sellable, not just shippable.</h2>
+        <p class="lead">A beautiful product that isn't labeled correctly can't be sold. We treat regulatory as part of the build — not an afterthought you discover at customs or a cease-and-desist.</p>
+        <p class="lead" style="margin-top:1em">From cosmetic INCI compliance to the OTC drug pathway that sunscreens require, we keep your line on the right side of the FDA so you can sell with confidence.</p>
+      </div>
+      <div class="reg-list reveal">
+        <div class="reg-item"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span><div><h4>INCI &amp; ingredient labeling</h4><p>Accurate, complete ingredient declarations — every active named correctly, in order, every time.</p></div></div>
+        <div class="reg-item"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span><div><h4>MoCRA facility &amp; product listing</h4><p>Facility registration and product listings under the Modernization of Cosmetics Regulation Act.</p></div></div>
+        <div class="reg-item"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span><div><h4>OTC / SPF drug pathway</h4><p>Sunscreens are OTC drugs. We manage FDA facility registration and the drug-listing path so your SPF is legal to sell.</p></div></div>
+        <div class="reg-item"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span><div><h4>Claims review</h4><p>Marketing language reviewed against what the formula can substantiate — keeping your brand credible and protected.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <span class="eyebrow" style="color:#aebfa1">Start your line</span>
+      <h2>Let's put your name on the bottle.</h2>
+      <p>Tell us the products your patients already reach for. We'll come back with a path to make them yours — formulated, branded, registered, and fulfilled.</p>
+      <div class="hero-cta">
+        <a class="btn light" href="mailto:pauly@thecosmeticformulary.com?subject=Starting%20a%20white-label%20line">Email us →</a>
+        <a class="btn" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.4)" href="https://clean-beauty-labs-3.myshopify.com/account/login" target="_blank" rel="noopener">Wholesale login</a>
+      </div>
+      <p style="margin-top:1.8em;margin-bottom:0"><a class="mailto" href="mailto:pauly@thecosmeticformulary.com">pauly@thecosmeticformulary.com</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="brand" href="#top"><span class="mark">CF</span> The Cosmetic Formulary</a>
+      <p style="margin-top:1em;max-width:24em;font-size:.9rem">Private-label professional skincare, built end to end — so aesthetic practices can sell the products their patients already trust, under their own name.</p>
+    </div>
+    <div>
+      <h5>Services</h5>
+      <a href="#services">Formulation</a><a href="#services">Manufacturing</a><a href="#services">Packaging &amp; Design</a><a href="#regulatory">Regulatory</a><a href="#ecom">Patient e-commerce</a>
+    </div>
+    <div>
+      <h5>Explore</h5>
+      <a href="#process">How it works</a><a href="#catalog">Catalog</a><a href="https://clean-beauty-labs-3.myshopify.com" target="_blank" rel="noopener">Shop</a><a href="#contact">Start your line</a>
+    </div>
+    <div>
+      <h5>Contact</h5>
+      <a href="mailto:pauly@thecosmeticformulary.com">pauly@thecosmeticformulary.com</a><a href="#">Charleston, South Carolina</a>
+    </div>
+    <div class="colofon">
+      <span>© 2026 The Cosmetic Formulary. All rights reserved.</span>
+      <span>Reference brand names are for chemistry comparison only and remain the property of their owners.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---- Live catalog (pulled from the connected Shopify store) ----
+const SHOP = "https://clean-beauty-labs-3.myshopify.com/products/";
+const PRODUCTS = [
+ {n:"Botanical Kinetics Cleansing Oil / Ginseng Cleansing Oil",c:"Cleanser",ref:"Aveda / Beauty of Joseon",h:"botanical-kinetics-cleansing-oil-ginseng-cleansing-oil",t:[["5 mL",12],["200 mL",48],["600 mL · Pro",76]]},
+ {n:"Special Cleansing Gel / Low pH Good Morning Gel",c:"Cleanser",ref:"Dermalogica / COSRX",h:"special-cleansing-gel-low-ph-good-morning-gel",t:[["5 mL",12],["200 mL",35],["600 mL · Pro",56]]},
+ {n:"Simply Clean / Nu-Derm Foaming Gel",c:"Cleanser",ref:"SkinCeuticals / Obagi",h:"simply-clean-nu-derm-foaming-gel",t:[["5 mL",12],["240 mL",48],["720 mL · Pro",76]]},
+ {n:"Exfoliating Cleanser / The Rice Polish",c:"Exfoliator",ref:"Aveda / Tatcha",h:"exfoliating-cleanser-the-rice-polish",t:[["5 mL",12],["115 mL",48],["345 mL · Pro",76]]},
+ {n:"Daily Microfoliant / Dermaclear Micro Milk Peel",c:"Exfoliator",ref:"Dermalogica / Dr. Jart+",h:"daily-microfoliant-dermaclear-micro-milk-peel",t:[["5 g",12],["75 g",60],["225 g · Pro",96]]},
+ {n:"Exfoliating Polish",c:"Exfoliator",ref:"ZO Skin Health",h:"exfoliating-polish",t:[["5 mL",12],["110 mL",98],["330 mL · Pro",156]]},
+ {n:"Phloretin CF",c:"Vitamin C",ref:"SkinCeuticals",h:"phloretin-cf",t:[["5 mL",12],["30 mL",175],["90 mL · Pro",280]]},
+ {n:"Silymarin CF",c:"Vitamin C",ref:"SkinCeuticals",h:"silymarin-cf",t:[["5 mL",12],["30 mL",170],["90 mL · Pro",272]]},
+ {n:"Super Serum Advance+",c:"Vitamin C",ref:"iS Clinical",h:"super-serum-advance",t:[["5 mL",12],["30 mL",160],["90 mL · Pro",256]]},
+ {n:"Active Serum",c:"Treatment Serum",ref:"iS Clinical",h:"active-serum",t:[["5 mL",12],["30 mL",148],["90 mL · Pro",236]]},
+ {n:"Phyto Corrective Gel",c:"Treatment Serum",ref:"SkinCeuticals",h:"phyto-corrective-gel",t:[["5 mL",12],["30 mL",84],["90 mL · Pro",134]]},
+ {n:"Growth Factor Serum Plus / TNS Advanced+",c:"Treatment Serum",ref:"ZO Skin Health / SkinMedica",h:"growth-factor-serum-plus-tns-advanced",t:[["5 mL",12],["30 mL",295],["90 mL · Pro",472]]},
+ {n:"Moisture x10 / Water Bank Blue HA Serum",c:"Treatment Serum",ref:"Bioelements / Laneige",h:"moisture-x10-water-bank-blue-ha-serum",t:[["5 mL",12],["50 mL",48],["150 mL · Pro",76]]},
+ {n:"ILUMA Brightening Serum / AHA 7 Whitehead Power Liquid",c:"Brightening",ref:"Image Skincare / COSRX",h:"iluma-brightening-serum-aha-7-whitehead-power-liquid",t:[["5 mL",12],["60 mL",72],["180 mL · Pro",115]]},
+ {n:"Lytera 2.0",c:"Brightening",ref:"SkinMedica",h:"lytera-20",t:[["5 mL",12],["60 mL",165],["180 mL · Pro",264]]},
+ {n:"Retinol Skin Brightener 0.5%",c:"Brightening",ref:"ZO Skin Health",h:"retinol-skin-brightener-05",t:[["5 mL",12],["30 mL",94],["90 mL · Pro",150]]},
+ {n:"Niacinamide 10% + Zinc 1%",c:"Brightening",ref:"The Ordinary / PCA Skin",h:"niacinamide-10-zinc-1",t:[["5 mL",12],["30 mL",28],["90 mL · Pro",44]]},
+ {n:"Azelaic Acid 10% Suspension / Azelaic Booster",c:"Brightening",ref:"The Ordinary / PCA Skin",h:"azelaic-acid-10-suspension-azelaic-booster",t:[["5 mL",12],["30 mL",48],["90 mL · Pro",76]]},
+ {n:"Triple Lipid Restore 2:4:2",c:"Moisturizer",ref:"SkinCeuticals",h:"triple-lipid-restore-2-4-2",t:[["5 mL",12],["48 mL",148],["144 mL · Pro",236]]},
+ {n:"Daily Power Defense",c:"Moisturizer",ref:"ZO Skin Health",h:"daily-power-defense",t:[["5 mL",12],["60 mL",170],["180 mL · Pro",272]]},
+ {n:"Complexion Renewal Pads",c:"Toner",ref:"ZO Skin Health",h:"complexion-renewal-pads",t:[["5 mL",12],["150 mL",95],["450 mL · Pro",152]]},
+ {n:"Botanical Kinetics Toning Mist / Cream Skin Refiner",c:"Toner",ref:"Aveda / Laneige",h:"botanical-kinetics-toning-mist-cream-skin-refiner",t:[["5 mL",12],["200 mL",38],["600 mL · Pro",60]]},
+ {n:"Total Eye Care / Concentrated Ginseng Eye Cream",c:"Eye",ref:"Dermalogica / Sulwhasoo",h:"total-eye-care-concentrated-ginseng-eye-cream",t:[["5 mL",12],["15 mL",95],["45 mL · Pro",152]]},
+ {n:"Professional Cream Mask / Water Sleeping Mask",c:"Mask",ref:"Sothys / Laneige",h:"professional-cream-mask-water-sleeping-mask",t:[["5 mL",12],["75 mL",78],["225 mL · Pro",124]]},
+ {n:"Clay Treatment / Super Volcanic Pore Clay Mask",c:"Mask",ref:"Eminence / Innisfree",h:"clay-treatment-super-volcanic-pore-clay-mask",t:[["5 mL",12],["120 mL",58],["360 mL · Pro",92]]},
+ {n:"Oclipse Smart Tone SPF 50+",c:"SPF",ref:"ZO Skin Health",h:"oclipse-smart-tone-spf-50",t:[["5 mL",12],["75 mL",78],["225 mL · Pro",124]]},
+ {n:"Lip Saver SPF / Lip Sleeping Mask",c:"Lip & Body",ref:"Aveda / Laneige",h:"lip-saver-spf-lip-sleeping-mask",t:[["5 g",12],["15 g",24],["45 g · Pro",38]]},
+ {n:"Muscle & Joint Relief Creme / Musclease Active Body Oil",c:"Lip & Body",ref:"Biotone / Elemis",h:"muscle-joint-relief-creme-musclease-active-body-oil",t:[["5 mL",12],["120 mL",48],["360 mL · Pro",76]]},
+ {n:"Herbal Select Massage Oil / Frangipani Monoi Body Oil",c:"Lip & Body",ref:"Biotone / Elemis",h:"herbal-select-massage-oil-frangipani-monoi-body-oil",t:[["5 mL",12],["240 mL",45],["720 mL · Pro",72]]},
+ {n:"Exfoliating Body Scrub / Coco Rose Body Polish",c:"Lip & Body",ref:"Body Drench / Herbivore",h:"exfoliating-body-scrub-coco-rose-body-polish",t:[["5 g",12],["250 g",48],["750 g · Pro",76]]}
+];
+
+const cats = ["All", ...Array.from(new Set(PRODUCTS.map(p=>p.c)))];
+let active = "All";
+const ctrl = document.getElementById('catControls');
+const grid = document.getElementById('catGrid');
+
+function render(){
+  const list = active==="All" ? PRODUCTS : PRODUCTS.filter(p=>p.c===active);
+  grid.innerHTML = list.map((p,i)=>{
+    const g = "g"+(i%6);
+    const tiers = p.t.map(([lbl,price])=>`<div class="row"><span>${lbl}</span><b>$${price}</b></div>`).join("");
+    return `<a class="card" href="${SHOP}${p.h}" target="_blank" rel="noopener">
+      <div class="ph ${g}"><span class="cat-tag">${p.c}</span><div class="b2"><i></i><i></i></div></div>
+      <div class="body">
+        <h4>${p.n}</h4>
+        <div class="ref">Refined from <b>${p.ref}</b></div>
+        <div class="tiers">${tiers}</div>
+        <div class="shopbtn">Request this formula →</div>
+      </div>
+    </a>`;
+  }).join("");
+}
+ctrl.innerHTML = cats.map(c=>`<button class="chip${c===active?' active':''}" data-c="${c}">${c}</button>`).join("")
+  + `<span class="cat-count" id="catCount"></span>`;
+function updateCount(){const n=active==="All"?PRODUCTS.length:PRODUCTS.filter(p=>p.c===active).length;document.getElementById('catCount').textContent=n+" formula"+(n===1?"":"s");}
+ctrl.addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b)return;
+  active=b.dataset.c;
+  ctrl.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x.dataset.c===active));
+  render(); updateCount();
+});
+render(); updateCount();
+
+// ---- reveal on scroll ----
+const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
