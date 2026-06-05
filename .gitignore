@@ -1,0 +1,26 @@
+# Secrets — NEVER commit these
+.env
+.env.*
+*.key
+*.pem
+secrets/
+credentials*.json
+service-account*.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Data / backups (live in Google Drive, not in the repo)
+*.sqlite
+*.db
+backups/
+*.csv
