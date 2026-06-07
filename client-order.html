@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Client Portal — Your Order</title>
+<style>
+  :root{--cypress:#46584a;--cypress2:#5b6657;--sand:#efe9dd;--bone:#faf7f0;--ink:#23291f;--rule:#d9d1bd;--paper:#f4efe4;--gold:#a9852f;--terra:#9b4a2d;--good:#46584a}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Georgia,'Times New Roman',serif;color:var(--ink);background:var(--paper)}
+  .bhead{background:var(--cypress);color:#fff;padding:22px 34px}
+  .bhead h1{margin:0;font-size:24px;letter-spacing:.4px}
+  .bhead .sub{margin:5px 0 0;font-size:13px;opacity:.9;font-style:italic}
+  main{padding:24px 34px 60px;max-width:1120px;margin:0 auto}
+  .card{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:20px 22px;margin-bottom:20px}
+  h2{font-size:18px;color:var(--cypress);border-bottom:2px solid var(--rule);padding-bottom:7px;margin:0 0 16px}
+  .pills{display:flex;gap:8px;flex-wrap:wrap}
+  .pill{display:inline-block;padding:5px 12px;border-radius:20px;font-size:12px;color:#fff;background:var(--cypress);font-family:Arial,sans-serif}
+  .pill.g{background:#fff;color:var(--cypress);border:1px solid var(--rule)}
+  .pill.gold{background:var(--gold)} .pill.terra{background:var(--terra)} .pill.green{background:#3a6b4a}
+  .prow{padding:13px 0;border-bottom:1px solid var(--rule)}
+  .prow:last-child{border-bottom:none}
+  .prow .pt{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline}
+  .prow .pn{font-weight:bold;font-size:15px}
+  .prow .ps{font-size:12.5px;color:var(--cypress2)}
+  .prow .stg{font-size:12px;color:var(--cypress);font-weight:bold;text-align:right;font-family:Arial,sans-serif}
+  .bar{height:9px;background:var(--sand);border-radius:6px;margin-top:9px;overflow:hidden}
+  .bar > i{display:block;height:100%;background:var(--cypress);border-radius:6px}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin-top:6px}
+  th,td{padding:10px 11px;text-align:left;font-size:13px;border-bottom:1px solid var(--rule);vertical-align:middle}
+  th{background:var(--cypress);color:#fff;font-size:11.5px;letter-spacing:.3px;font-family:Arial,sans-serif}
+  td.c,th.c{text-align:center} td.r,th.r{text-align:right}
+  tbody tr:nth-child(even){background:var(--bone)}
+  tfoot td{font-weight:bold;background:var(--sand)}
+  .prod{font-weight:bold}
+  .tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10.5px;color:#fff;font-family:Arial,sans-serif;white-space:nowrap}
+  .t-yes{background:#3a6b4a} .t-no{background:var(--terra)} .t-part{background:var(--gold)}
+  .muted{color:var(--cypress2);font-size:12px}
+  .note{background:var(--sand);border-left:4px solid var(--cypress);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;margin-top:14px;line-height:1.5}
+  .links a{color:var(--cypress);font-size:13px;margin-right:16px}
+  footer{padding:18px 34px;color:var(--cypress2);font-size:11px;font-style:italic;border-top:1px solid var(--rule)}
+</style>
+</head>
+<body>
+<div class="bhead">
+  <h1 id="brandTitle">Client Portal</h1>
+  <div class="sub">Your order status &amp; payments · manufactured by The Cosmetic Formulary</div>
+</div>
+<main>
+
+  <div class="card">
+    <h2 id="welcome">Welcome</h2>
+    <div class="pills" id="stats"></div>
+    <div class="links" style="margin-top:14px">
+      <a href="portal.html">Reorder &amp; messages →</a>
+      <a href="index.html">Storefront →</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Your order progress</h2>
+    <div id="progress"></div>
+  </div>
+
+  <div class="card">
+    <h2>Order &amp; payments</h2>
+    <div class="pills" id="paySummary" style="margin-bottom:14px"></div>
+    <div style="overflow-x:auto">
+      <table id="orderTable">
+        <thead><tr>
+          <th>Product</th>
+          <th class="c">Fulfilled / Ordered</th>
+          <th class="c">Due</th>
+          <th class="r">Unit price</th>
+          <th class="r">Line total</th>
+          <th class="r">Deposit (50%)</th>
+          <th class="c">Deposit</th>
+          <th class="r">Paid</th>
+          <th class="r">Balance</th>
+        </tr></thead>
+        <tbody></tbody>
+        <tfoot></tfoot>
+      </table>
+    </div>
+    <div class="note" id="depositNote"></div>
+  </div>
+
+  <div class="card">
+    <h2>Your retail upside</h2>
+    <div class="pills" id="retailSummary" style="margin-bottom:14px"></div>
+    <div style="overflow-x:auto">
+      <table id="retailTable">
+        <thead><tr>
+          <th>Product</th>
+          <th class="c">Units</th>
+          <th class="r">MSRP</th>
+          <th class="r">Retail value</th>
+          <th class="r">Your cost</th>
+          <th class="r">Profit</th>
+          <th class="c">Margin</th>
+        </tr></thead>
+        <tbody></tbody>
+        <tfoot></tfoot>
+      </table>
+    </div>
+    <div class="note">What you'd make selling your full order through at MSRP. Actual results vary with sell-through and any discounts.</div>
+  </div>
+
+</main>
+<footer>The Cosmetic Formulary · client order portal · you only ever see your own brand · snapshot June 5, 2026</footer>
+
+<script src="clients-data.js"></script>
+<script>
+  // ---- session / branding ----
+  var s={}; try{ s=JSON.parse(localStorage.getItem('fos_session'))||{}; }catch(e){}
+  var cid=s.id||'dailyrou';
+  var client=(window.TCF_CLIENTS||{})[cid]||null;
+  var brand=s.brand||(client&&client.brand)||'Daily Rou', who=((s.name||(client&&client.name)||'there')+'').split(' ')[0];
+  document.getElementById('brandTitle').textContent=brand+' · Client Portal';
+  document.getElementById('welcome').textContent='Welcome, '+who;
+
+  // ---- order data (from the client registry; empty array = portal "in setup") ----
+  var P=(client&&client.order)?client.order:[];
+  var money=function(v){ return '$'+Number(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); };
+
+  // ---- stats ----
+  var totOrdered=0, totFulfilled=0, totProg=0;
+  P.forEach(function(p){ totOrdered+=p.ordered; totFulfilled+=p.fulfilled; totProg+=p.progress; });
+  var fulPct=totOrdered?Math.round(totFulfilled/totOrdered*100):0, avgProg=P.length?Math.round(totProg/P.length):0;
+  document.getElementById('stats').innerHTML=[
+    P.length+' products', totOrdered.toLocaleString()+' units ordered', fulPct+'% fulfilled', avgProg+'% avg progress'
+  ].map(function(x){ return '<span class="pill g">'+x+'</span>'; }).join('');
+
+  // ---- progress ----
+  document.getElementById('progress').innerHTML=P.map(function(p){
+    return '<div class="prow"><div class="pt"><div><div class="pn">'+p.n+'</div>'+
+      '<div class="ps">'+p.t+' · '+p.size+' — '+p.note+'</div></div>'+
+      '<div class="stg">'+p.stage+'<br>'+p.progress+'%</div></div>'+
+      '<div class="bar"><i style="width:'+p.progress+'%"></i></div></div>';
+  }).join('');
+
+  // ---- order & payments ----
+  var tLine=0,tDep=0,tPaid=0,tBal=0,depCollected=0,depOutstanding=0;
+  var rows=P.map(function(p){
+    var line=p.ordered*p.price, dep=line*0.5, paid=p.paid, bal=line-paid;
+    tLine+=line; tDep+=dep; tPaid+=paid; tBal+=bal;
+    var status, cls;
+    if(paid>=dep-0.01){ status='Taken ✓'; cls='t-yes'; depCollected+=dep; }
+    else if(paid>0){ status='Partial'; cls='t-part'; depCollected+=paid; depOutstanding+=(dep-paid); }
+    else { status='Not taken'; cls='t-no'; depOutstanding+=dep; }
+    return '<tr><td class="prod">'+p.n+'</td>'+
+      '<td class="c">'+p.fulfilled.toLocaleString()+' / '+p.ordered.toLocaleString()+'</td>'+
+      '<td class="c">'+p.due+'</td>'+
+      '<td class="r">'+money(p.price)+'</td>'+
+      '<td class="r">'+money(line)+'</td>'+
+      '<td class="r">'+money(dep)+'</td>'+
+      '<td class="c"><span class="tag '+cls+'">'+status+'</span></td>'+
+      '<td class="r">'+money(paid)+'</td>'+
+      '<td class="r"><b>'+money(bal)+'</b></td></tr>';
+  }).join('');
+  document.querySelector('#orderTable tbody').innerHTML=rows;
+  document.querySelector('#orderTable tfoot').innerHTML=
+    '<tr><td>Totals</td><td class="c">'+totFulfilled.toLocaleString()+' / '+totOrdered.toLocaleString()+'</td>'+
+    '<td></td><td></td><td class="r">'+money(tLine)+'</td><td class="r">'+money(tDep)+'</td>'+
+    '<td></td><td class="r">'+money(tPaid)+'</td><td class="r">'+money(tBal)+'</td></tr>';
+
+  document.getElementById('paySummary').innerHTML=[
+    ['Order value '+money(tLine),'g'],
+    ['Deposit (50%) '+money(tDep),'gold'],
+    ['Deposit collected '+money(depCollected),'green'],
+    ['Deposit outstanding '+money(depOutstanding),'terra'],
+    ['Paid '+money(tPaid),'g'],
+    ['Balance due '+money(tBal),'terra'],
+    [totFulfilled.toLocaleString()+' / '+totOrdered.toLocaleString()+' units fulfilled','g']
+  ].map(function(x){ return '<span class="pill '+x[1]+'">'+x[0]+'</span>'; }).join('');
+
+  var depTaken=0, depPending=0;
+  P.forEach(function(p){ if((p.paid||0) >= (p.ordered*p.price*0.5)-0.01) depTaken++; else depPending++; });
+  document.getElementById('depositNote').innerHTML=
+    '<b>How payment works:</b> production runs on a <b>50% deposit to begin</b>, with the remaining <b>50% on completion</b>. '+
+    'The <b>Deposit</b> column shows whether we’ve collected each product’s deposit yet — '+
+    '<b>'+depTaken+'</b> of your products have their deposit <b>taken</b>'+
+    (depPending? ' and <b>'+depPending+'</b> still pending ('+money(depOutstanding)+' outstanding)':'')+
+    '. <b>“Due”</b> is the expected ready date.';
+
+  // ---- retail upside (what she'd make selling through at MSRP) ----
+  var tRetail=0, tCostR=0;
+  var rrows=P.map(function(p){
+    var cost=p.ordered*p.price, retail=p.ordered*(p.msrp||0), profit=retail-cost;
+    var marg=retail?Math.round(profit/retail*100):0;
+    tRetail+=retail; tCostR+=cost;
+    return '<tr><td class="prod">'+p.n+'</td>'+
+      '<td class="c">'+p.ordered.toLocaleString()+'</td>'+
+      '<td class="r">'+money(p.msrp)+'</td>'+
+      '<td class="r">'+money(retail)+'</td>'+
+      '<td class="r">'+money(cost)+'</td>'+
+      '<td class="r"><b>'+money(profit)+'</b></td>'+
+      '<td class="c">'+marg+'%</td></tr>';
+  }).join('');
+  document.querySelector('#retailTable tbody').innerHTML=rrows;
+  document.querySelector('#retailTable tfoot').innerHTML=
+    '<tr><td>Totals</td><td></td><td></td><td class="r">'+money(tRetail)+'</td>'+
+    '<td class="r">'+money(tCostR)+'</td><td class="r">'+money(tRetail-tCostR)+'</td><td></td></tr>';
+  document.getElementById('retailSummary').innerHTML=[
+    ['Retail value '+money(tRetail),'g'],
+    ['Projected profit '+money(tRetail-tCostR),'green']
+  ].map(function(x){ return '<span class="pill '+x[1]+'">'+x[0]+'</span>'; }).join('');
+
+  // ---- in-setup clients (no confirmed order yet): clean placeholder, no other brand's data ----
+  if(!P.length){
+    document.getElementById('stats').innerHTML='<span class="pill g">Portal active</span>';
+    document.getElementById('progress').innerHTML='<p class="muted">Your portal is active. Your product progress, order, and payment details will appear here as soon as your first run is confirmed.</p>';
+    document.getElementById('paySummary').innerHTML='<span class="pill g">No active order yet</span>';
+    var ot=document.getElementById('orderTable'); if(ot) ot.style.display='none';
+    var rt=document.getElementById('retailTable'); if(rt) rt.style.display='none';
+    var rsum=document.getElementById('retailSummary'); if(rsum) rsum.innerHTML='';
+    document.getElementById('depositNote').innerHTML='Once your first run is confirmed, this shows your deposit and balance. Questions? <b>pauly@thecosmeticformulary.com</b>.';
+  }
+</script>
+<script src="app-nav.js"></script>
+</body>
+</html>

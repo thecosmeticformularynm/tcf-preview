@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulary OS · Inventory (Phase 1 Prototype)</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --line:#2a2f3a;
+    --ink:#e8eaed; --muted:#9aa3b2; --accent:#4f9cff; --accent2:#2b6fd6;
+    --ok:#2ecc71; --low:#ffb020; --out:#ff5d5d; --chip:#222836;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%}
+  header{position:sticky;top:0;z-index:5;background:linear-gradient(180deg,#11141a,#0f1115);
+    border-bottom:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  header h1{font-size:16px;margin:0;font-weight:650;letter-spacing:.2px}
+  header .sub{color:var(--muted);font-size:12px}
+  .badge{background:var(--chip);color:var(--muted);border:1px solid var(--line);
+    padding:3px 8px;border-radius:999px;font-size:11px}
+  nav{display:flex;gap:6px;flex-wrap:wrap;padding:10px 12px;background:var(--panel);border-bottom:1px solid var(--line);
+    position:sticky;top:53px;z-index:4}
+  nav button{background:transparent;color:var(--muted);border:1px solid transparent;
+    padding:9px 14px;border-radius:10px;font-size:14px;cursor:pointer;font-weight:600}
+  nav button.active{background:var(--panel2);color:var(--ink);border-color:var(--line)}
+  main{padding:16px;max-width:1200px;margin:0 auto}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  input,select,textarea{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:10px;padding:10px 12px;font-size:15px;outline:none;width:100%}
+  input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+  .search{max-width:340px;flex:1 1 240px}
+  button.btn{background:var(--accent);color:#04122b;border:none;padding:10px 16px;border-radius:10px;
+    font-weight:700;font-size:14px;cursor:pointer}
+  button.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  button.btn.sm{padding:7px 11px;font-size:13px}
+  .grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .stat .n{font-size:26px;font-weight:750}
+  .stat .l{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+  table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);
+    border-radius:14px;overflow:hidden}
+  th,td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle}
+  th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;background:var(--panel2);
+    cursor:pointer;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:#1b2030}
+  .pill{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700}
+  .pill.ok{background:rgba(46,204,113,.15);color:var(--ok)}
+  .pill.low{background:rgba(255,176,32,.15);color:var(--low)}
+  .pill.out{background:rgba(255,93,93,.15);color:var(--out)}
+  .pill.raw{background:rgba(79,156,255,.14);color:var(--accent)}
+  .pill.fin{background:rgba(180,120,255,.16);color:#c79bff}
+  .qtybtns{display:inline-flex;gap:6px;align-items:center}
+  .qtybtns button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);
+    background:var(--panel2);color:var(--ink);font-size:17px;cursor:pointer;font-weight:700}
+  .muted{color:var(--muted)}
+  .right{margin-left:auto}
+  /* modal */
+  .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:flex-start;
+    justify-content:center;padding:30px 14px;z-index:20;overflow:auto}
+  .modal-bg.open{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;
+    width:100%;max-width:620px}
+  .modal h3{margin:0 0 14px}
+  .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .fields label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted)}
+  .fields label.full{grid-column:1/-1}
+  .modal .actions{display:flex;gap:10px;margin-top:18px;justify-content:flex-end}
+  .empty{padding:40px;text-align:center;color:var(--muted)}
+  .hint{font-size:12px;color:var(--muted);margin:6px 2px 0}
+  .tablewrap{overflow:auto;border-radius:14px}
+  @media(max-width:640px){
+    .fields{grid-template-columns:1fr}
+    nav{top:53px}
+    th:nth-child(n+6),td:nth-child(n+6){display:none} /* compact phone view */
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Formulary OS · Inventory</h1>
+  <span class="badge">Phase 1 prototype</span>
+  <span class="sub right">Lot &amp; location tracking · runs offline · saves to this device</span>
+</header>
+
+<nav id="nav">
+  <button data-tab="dash" class="active">Dashboard</button>
+  <button data-tab="stock">Stock on hand</button>
+  <button data-tab="batch">Batch log</button>
+</nav>
+
+<main>
+  <!-- DASHBOARD -->
+  <section id="tab-dash">
+    <div class="grid-cards" id="stats"></div>
+    <h3 style="margin:22px 2px 10px">Need attention</h3>
+    <div class="tablewrap"><table id="attn"><thead><tr>
+      <th>Item</th><th>Type</th><th>Lot #</th><th>Location</th><th>On hand</th><th>Reorder at</th><th>Status</th>
+    </tr></thead><tbody></tbody></table></div>
+    <p class="hint">"Need attention" = anything at or below its reorder point, or out of stock. This is the daily glance.</p>
+  </section>
+
+  <!-- STOCK -->
+  <section id="tab-stock" style="display:none">
+    <div class="toolbar">
+      <input class="search" id="stockSearch" placeholder="Search item, lot #, location, client/supplier…">
+      <select id="stockType" style="max-width:170px">
+        <option value="">All types</option>
+        <option value="Raw Material">Raw Material</option>
+        <option value="Finished Good">Finished Good</option>
+      </select>
+      <select id="stockStatus" style="max-width:160px">
+        <option value="">All status</option>
+        <option value="low">Low / Out only</option>
+      </select>
+      <button class="btn" onclick="openStock()">+ Add lot</button>
+      <div class="right" style="display:flex;gap:8px">
+        <button class="btn ghost sm" onclick="exportCSV()">Export CSV</button>
+        <button class="btn ghost sm" onclick="document.getElementById('importFile').click()">Import CSV</button>
+        <input type="file" id="importFile" accept=".csv" style="display:none" onchange="importCSV(this)">
+      </div>
+    </div>
+    <div class="tablewrap"><table id="stockTable"><thead><tr>
+      <th data-k="name">Item</th>
+      <th data-k="type">Type</th>
+      <th data-k="lot">Lot #</th>
+      <th data-k="location">Location</th>
+      <th data-k="qty">On hand</th>
+      <th data-k="party">Client / Supplier</th>
+      <th data-k="formula">Formula / SKU</th>
+      <th data-k="coa">CoA</th>
+      <th>Status</th>
+      <th></th>
+    </tr></thead><tbody></tbody></table></div>
+    <p class="hint">Tap an item to edit. Use the − / + buttons to adjust counts fast on a phone. Everything saves automatically on this device. (In the real app this syncs live across you + warehouse + lab.)</p>
+  </section>
+
+  <!-- BATCH LOG -->
+  <section id="tab-batch" style="display:none">
+    <div class="toolbar">
+      <input class="search" id="batchSearch" placeholder="Search batch #, client, product, lot…">
+      <button class="btn" onclick="openBatch()">+ Log a batch</button>
+    </div>
+    <div class="tablewrap"><table id="batchTable"><thead><tr>
+      <th>Batch #</th><th>Date</th><th>Client</th><th>Product</th><th>Formula</th>
+      <th>Size</th><th>Lot #</th><th>Maker</th><th>QC</th><th>CoA</th><th>Shipped</th><th></th>
+    </tr></thead><tbody></tbody></table></div>
+    <p class="hint">Mirrors your existing weekly "Batch Log" sheets column-for-column — so your Drive history imports straight in, and logging a finished-good batch can auto-create its stock lot.</p>
+  </section>
+</main>
+
+<!-- STOCK MODAL -->
+<div class="modal-bg" id="stockModal">
+  <div class="modal">
+    <h3 id="stockTitle">Add lot</h3>
+    <div class="fields">
+      <label class="full">Item name<input id="f_name" placeholder="e.g. Glycerin USP / Daily Rou Cleanser"></label>
+      <label>Type
+        <select id="f_type"><option>Raw Material</option><option>Finished Good</option></select>
+      </label>
+      <label>Lot #<input id="f_lot" placeholder="e.g. RM-2412-018"></label>
+      <label>Location<input id="f_location" placeholder="e.g. Shelf A3 / Cold Room"></label>
+      <label>On hand<input id="f_qty" type="number" step="any" placeholder="0"></label>
+      <label>Unit<input id="f_unit" placeholder="kg / units / L"></label>
+      <label>Reorder at<input id="f_reorder" type="number" step="any" placeholder="0"></label>
+      <label>Client / Supplier<input id="f_party" placeholder="e.g. Making Cosmetics / Daily Rou"></label>
+      <label>Formula code / SKU<input id="f_formula" placeholder="e.g. DR-CLN-01"></label>
+      <label>CoA on file
+        <select id="f_coa"><option>Y</option><option>N</option></select>
+      </label>
+      <label class="full">Notes<textarea id="f_notes" rows="2"></textarea></label>
+    </div>
+    <div class="actions">
+      <button class="btn ghost" id="stockDelete" onclick="deleteStock()" style="margin-right:auto;color:var(--out)">Delete</button>
+      <button class="btn ghost" onclick="closeModal('stockModal')">Cancel</button>
+      <button class="btn" onclick="saveStock()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- BATCH MODAL -->
+<div class="modal-bg" id="batchModal">
+  <div class="modal">
+    <h3 id="batchTitle">Log a batch</h3>
+    <div class="fields">
+      <label>Batch #<input id="b_batch" placeholder="B-2412-007"></label>
+      <label>Date<input id="b_date" type="date"></label>
+      <label>Client<input id="b_client"></label>
+      <label>Product name<input id="b_product"></label>
+      <label>Formula code<input id="b_formula"></label>
+      <label>Batch size (units)<input id="b_size" type="number" step="any"></label>
+      <label>Lot #<input id="b_lot"></label>
+      <label>Batch maker<input id="b_maker"></label>
+      <label>QC passed<select id="b_qc"><option>Y</option><option>N</option></select></label>
+      <label>CoA attached<select id="b_coa"><option>Y</option><option>N</option></select></label>
+      <label>Shipped<select id="b_ship"><option>N</option><option>Y</option></select></label>
+      <label class="full">Notes<textarea id="b_notes" rows="2"></textarea></label>
+      <label class="full" style="flex-direction:row;align-items:center;gap:8px;color:var(--ink)">
+        <input type="checkbox" id="b_makestock" style="width:auto" checked>
+        Also add this batch as a Finished-Good lot in Stock
+      </label>
+    </div>
+    <div class="actions">
+      <button class="btn ghost" id="batchDelete" onclick="deleteBatch()" style="margin-right:auto;color:var(--out)">Delete</button>
+      <button class="btn ghost" onclick="closeModal('batchModal')">Cancel</button>
+      <button class="btn" onclick="saveBatch()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="inventory-data.js"></script>
+<script>
+/* ---------- storage ---------- */
+const DB_KEY='formulary_inv_v2_inflow';
+let db = load();
+function load(){
+  try{const j=JSON.parse(localStorage.getItem(DB_KEY));if(j&&j.stock)return j;}catch(e){}
+  return seed();
+}
+function save(){localStorage.setItem(DB_KEY,JSON.stringify(db));}
+function uid(){return 'x'+(db._seq=(db._seq||0)+1);}
+
+function seed(){
+  // Sample rows so you can SEE it working. Replace with real inFlow + Drive data.
+  return {_seq:9999, stock:(window.INVENTORY_SEED||[]).slice(), batch:[
+    {id:'b1',batch:'B-2412-006',date:'2026-05-28',client:'Salt Spa & Yoga',product:'Salt Back-Bar Scrub',formula:'SS-SCRUB',size:120,lot:'B-2412-006',maker:'Lab',qc:'Y',coa:'Y',ship:'N',notes:''},
+    {id:'b2',batch:'B-2412-003',date:'2026-05-20',client:'Daily Rou',product:'Gentle Cleanser',formula:'DR-CLN-01',size:240,lot:'B-2412-003',maker:'Lab',qc:'Y',coa:'Y',ship:'Y',notes:''},
+  ]};
+}
+
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>(s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function statusOf(r){
+  const q=Number(r.qty)||0, ro=Number(r.reorder)||0;
+  if(q<=0) return 'out';
+  if(ro>0 && q<=ro) return 'low';
+  return 'ok';
+}
+function statusPill(s){
+  return s==='out'?'<span class="pill out">OUT</span>'
+    : s==='low'?'<span class="pill low">LOW</span>'
+    : '<span class="pill ok">OK</span>';
+}
+
+/* ---------- tabs ---------- */
+document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#nav button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  ['dash','stock','batch'].forEach(t=>$('#tab-'+t).style.display='none');
+  $('#tab-'+b.dataset.tab).style.display='';
+  render();
+});
+
+/* ---------- render ---------- */
+function render(){renderDash();renderStock();renderBatch();}
+
+function renderDash(){
+  const s=db.stock;
+  const raw=s.filter(r=>r.type==='Raw Material').length;
+  const fin=s.filter(r=>r.type==='Finished Good').length;
+  const low=s.filter(r=>statusOf(r)==='low').length;
+  const out=s.filter(r=>statusOf(r)==='out').length;
+  const locs=new Set(s.map(r=>r.location).filter(Boolean)).size;
+  $('#stats').innerHTML=[
+    ['Total lots',s.length],['Raw materials',raw],['Finished goods',fin],
+    ['Locations',locs],['Low stock',low],['Out of stock',out]
+  ].map(([l,n])=>`<div class="stat"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
+
+  const attn=s.filter(r=>statusOf(r)!=='ok').sort((a,b)=>statusOf(a)==='out'?-1:1);
+  const tb=$('#attn tbody');
+  tb.innerHTML = attn.length? attn.map(r=>`<tr>
+    <td>${esc(r.name)}</td><td>${typePill(r.type)}</td><td>${esc(r.lot)}</td>
+    <td>${esc(r.location)}</td><td>${esc(r.qty)} ${esc(r.unit)}</td>
+    <td class="muted">${esc(r.reorder)}</td><td>${statusPill(statusOf(r))}</td></tr>`).join('')
+    : `<tr><td colspan="7" class="empty">Nothing low or out. 🎉</td></tr>`;
+}
+function typePill(t){return t==='Raw Material'?'<span class="pill raw">Raw</span>':'<span class="pill fin">Finished</span>';}
+
+function renderStock(){
+  const q=($('#stockSearch').value||'').toLowerCase();
+  const tf=$('#stockType').value, sf=$('#stockStatus').value;
+  let rows=db.stock.filter(r=>{
+    const hay=[r.name,r.lot,r.location,r.party,r.formula,r.type].join(' ').toLowerCase();
+    if(q&&!hay.includes(q))return false;
+    if(tf&&r.type!==tf)return false;
+    if(sf==='low'&&statusOf(r)==='ok')return false;
+    return true;
+  });
+  const tb=$('#stockTable tbody');
+  tb.innerHTML = rows.length? rows.map(r=>`<tr>
+    <td onclick="openStock('${r.id}')" style="cursor:pointer;font-weight:600">${esc(r.name)}</td>
+    <td>${typePill(r.type)}</td>
+    <td>${esc(r.lot)}</td>
+    <td>${esc(r.location)}</td>
+    <td><div class="qtybtns"><button onclick="bump('${r.id}',-1)">−</button>
+        <b>${esc(r.qty)}</b> <span class="muted">${esc(r.unit)}</span>
+        <button onclick="bump('${r.id}',1)">+</button></div></td>
+    <td class="muted">${esc(r.party)}</td>
+    <td class="muted">${esc(r.formula)}</td>
+    <td class="muted">${esc(r.coa)}</td>
+    <td>${statusPill(statusOf(r))}</td>
+    <td><button class="btn ghost sm" onclick="openStock('${r.id}')">Edit</button></td>
+  </tr>`).join('') : `<tr><td colspan="10" class="empty">No matching lots.</td></tr>`;
+}
+
+function renderBatch(){
+  const q=($('#batchSearch').value||'').toLowerCase();
+  const rows=db.batch.filter(b=>[b.batch,b.client,b.product,b.lot,b.formula].join(' ').toLowerCase().includes(q));
+  const tb=$('#batchTable tbody');
+  tb.innerHTML=rows.length? rows.map(b=>`<tr>
+    <td style="font-weight:600">${esc(b.batch)}</td><td>${esc(b.date)}</td><td>${esc(b.client)}</td>
+    <td>${esc(b.product)}</td><td class="muted">${esc(b.formula)}</td><td>${esc(b.size)}</td>
+    <td>${esc(b.lot)}</td><td class="muted">${esc(b.maker)}</td>
+    <td>${esc(b.qc)}</td><td>${esc(b.coa)}</td><td>${esc(b.ship)}</td>
+    <td><button class="btn ghost sm" onclick="openBatch('${b.id}')">Edit</button></td>
+  </tr>`).join(''):`<tr><td colspan="12" class="empty">No batches logged yet.</td></tr>`;
+}
+
+/* ---------- quick qty bump ---------- */
+function bump(id,d){const r=db.stock.find(x=>x.id===id);if(!r)return;
+  r.qty=Math.max(0,(Number(r.qty)||0)+d);save();render();}
+
+/* ---------- stock modal ---------- */
+let editStockId=null;
+function openStock(id){
+  editStockId=id||null;
+  const r = id? db.stock.find(x=>x.id===id):{type:'Raw Material',coa:'Y'};
+  $('#stockTitle').textContent=id?'Edit lot':'Add lot';
+  $('#stockDelete').style.display=id?'':'none';
+  f_name.value=r.name||'';f_type.value=r.type||'Raw Material';f_lot.value=r.lot||'';
+  f_location.value=r.location||'';f_qty.value=r.qty??'';f_unit.value=r.unit||'';
+  f_reorder.value=r.reorder??'';f_party.value=r.party||'';f_formula.value=r.formula||'';
+  f_coa.value=r.coa||'Y';f_notes.value=r.notes||'';
+  openModal('stockModal');
+}
+function saveStock(){
+  if(!f_name.value.trim()){alert('Item name is required');return;}
+  const data={name:f_name.value.trim(),type:f_type.value,lot:f_lot.value.trim(),
+    location:f_location.value.trim(),qty:Number(f_qty.value)||0,unit:f_unit.value.trim(),
+    reorder:Number(f_reorder.value)||0,party:f_party.value.trim(),formula:f_formula.value.trim(),
+    coa:f_coa.value,notes:f_notes.value.trim()};
+  if(editStockId){Object.assign(db.stock.find(x=>x.id===editStockId),data);}
+  else{db.stock.unshift({id:uid(),...data});}
+  save();closeModal('stockModal');render();
+}
+function deleteStock(){if(!editStockId)return;if(!confirm('Delete this lot?'))return;
+  db.stock=db.stock.filter(x=>x.id!==editStockId);save();closeModal('stockModal');render();}
+
+/* ---------- batch modal ---------- */
+let editBatchId=null;
+function openBatch(id){
+  editBatchId=id||null;
+  const b=id?db.batch.find(x=>x.id===id):{qc:'Y',coa:'Y',ship:'N'};
+  $('#batchTitle').textContent=id?'Edit batch':'Log a batch';
+  $('#batchDelete').style.display=id?'':'none';
+  b_batch.value=b.batch||'';b_date.value=b.date||'';b_client.value=b.client||'';
+  b_product.value=b.product||'';b_formula.value=b.formula||'';b_size.value=b.size??'';
+  b_lot.value=b.lot||'';b_maker.value=b.maker||'';b_qc.value=b.qc||'Y';
+  b_coa.value=b.coa||'Y';b_ship.value=b.ship||'N';b_notes.value=b.notes||'';
+  document.getElementById('b_makestock').parentElement.style.display=id?'none':'flex';
+  openModal('batchModal');
+}
+function saveBatch(){
+  const data={batch:b_batch.value.trim(),date:b_date.value,client:b_client.value.trim(),
+    product:b_product.value.trim(),formula:b_formula.value.trim(),size:Number(b_size.value)||0,
+    lot:b_lot.value.trim(),maker:b_maker.value.trim(),qc:b_qc.value,coa:b_coa.value,
+    ship:b_ship.value,notes:b_notes.value.trim()};
+  if(editBatchId){Object.assign(db.batch.find(x=>x.id===editBatchId),data);}
+  else{
+    db.batch.unshift({id:uid(),...data});
+    if(document.getElementById('b_makestock').checked && data.product){
+      db.stock.unshift({id:uid(),name:data.product,type:'Finished Good',lot:data.lot,
+        location:'FG Rack',qty:data.size,unit:'units',reorder:0,party:data.client,
+        formula:data.formula,coa:data.coa,notes:'Auto-created from batch '+data.batch});
+    }
+  }
+  save();closeModal('batchModal');render();
+}
+function deleteBatch(){if(!editBatchId)return;if(!confirm('Delete this batch?'))return;
+  db.batch=db.batch.filter(x=>x.id!==editBatchId);save();closeModal('batchModal');render();}
+
+/* ---------- modal utils ---------- */
+function openModal(id){$('#'+id).classList.add('open');}
+function closeModal(id){$('#'+id).classList.remove('open');}
+document.querySelectorAll('.modal-bg').forEach(m=>m.onclick=e=>{if(e.target===m)m.classList.remove('open');});
+
+/* ---------- CSV ---------- */
+const STOCK_COLS=['name','type','lot','location','qty','unit','reorder','party','formula','coa','notes'];
+const STOCK_HEAD=['Item','Type','Lot #','Location','On hand','Unit','Reorder at','Client/Supplier','Formula/SKU','CoA','Notes'];
+function csvCell(v){v=v==null?'':String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+function exportCSV(){
+  const lines=[STOCK_HEAD.join(',')];
+  db.stock.forEach(r=>lines.push(STOCK_COLS.map(k=>csvCell(r[k])).join(',')));
+  const blob=new Blob([lines.join('\n')],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='formulary-stock.csv';a.click();
+}
+function parseCSV(text){
+  const rows=[];let row=[],cur='',q=false;
+  for(let i=0;i<text.length;i++){const c=text[i];
+    if(q){if(c==='"'){if(text[i+1]==='"'){cur+='"';i++;}else q=false;}else cur+=c;}
+    else{if(c==='"')q=true;else if(c===','){row.push(cur);cur='';}
+      else if(c==='\n'||c==='\r'){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cur);rows.push(row);row=[];cur='';}
+      else cur+=c;}}
+  if(cur!==''||row.length){row.push(cur);rows.push(row);}
+  return rows.filter(r=>r.some(c=>c.trim()!==''));
+}
+function importCSV(input){
+  const file=input.files[0];if(!file)return;
+  const rd=new FileReader();
+  rd.onload=()=>{
+    const rows=parseCSV(rd.result);if(rows.length<2){alert('No rows found');return;}
+    const head=rows[0].map(h=>h.trim().toLowerCase());
+    // map header -> our keys, by loose name match
+    const map={};
+    head.forEach((h,i)=>{
+      if(/item|product|name|ingredient/.test(h))map.name=i;
+      else if(/type/.test(h))map.type=i;
+      else if(/lot/.test(h))map.lot=i;
+      else if(/location|bin|shelf/.test(h))map.location=i;
+      else if(/on hand|qty|quantity|stock/.test(h))map.qty=i;
+      else if(/unit/.test(h))map.unit=i;
+      else if(/reorder/.test(h))map.reorder=i;
+      else if(/client|supplier|vendor/.test(h))map.party=i;
+      else if(/formula|sku/.test(h))map.formula=i;
+      else if(/coa/.test(h))map.coa=i;
+      else if(/note/.test(h))map.notes=i;
+    });
+    if(map.name==null){alert('Could not find an Item/Name column. Headers seen: '+head.join(', '));return;}
+    let added=0;
+    rows.slice(1).forEach(r=>{
+      const g=k=>map[k]!=null?(r[map[k]]||'').trim():'';
+      if(!g('name'))return;
+      db.stock.unshift({id:uid(),name:g('name'),type:g('type')||'Raw Material',lot:g('lot'),
+        location:g('location'),qty:Number(g('qty'))||0,unit:g('unit'),reorder:Number(g('reorder'))||0,
+        party:g('party'),formula:g('formula'),coa:g('coa')||'',notes:g('notes')});added++;
+    });
+    save();render();input.value='';
+    alert('Imported '+added+' lots. (Tip: works with your inFlow export — it auto-matches common column names.)');
+  };
+  rd.readAsText(file);
+}
+
+/* ---------- live search ---------- */
+['stockSearch','stockType','stockStatus'].forEach(id=>$('#'+id).oninput=renderStock);
+$('#batchSearch').oninput=renderBatch;
+
+render();
+</script>
+<script src="app-nav.js"></script>
+</body>
+</html>

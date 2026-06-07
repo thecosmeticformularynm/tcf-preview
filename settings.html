@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Settings — Formulary OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#f4efe6;--bg2:#ece5d9;--ink:#1d1c1a;--soft:#54514b;--line:#e2dacd;--paper:#fffdfa;--accent:#3a4b3f;--accent2:#7c8a6f;--gold:#a98a5c;--ok:#3a6b4a;--r:14px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:400;letter-spacing:-.01em}
+  a{color:inherit}
+  .wrap{max-width:920px;margin:0 auto;padding:26px 22px 80px}
+  .top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+  .top h1{font-size:2rem}
+  .top p{color:var(--soft);font-size:.92rem}
+  .ctx{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2);font-weight:600}
+  .who{display:flex;gap:8px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:100px;padding:6px 14px;font-size:.82rem;color:var(--soft)}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-top:16px}
+  .card h2{font-size:1.18rem;margin-bottom:3px}
+  .card .sub{color:var(--soft);font-size:.84rem;margin-bottom:14px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  label{display:flex;flex-direction:column;gap:5px;font-size:.74rem;color:var(--soft);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+  label.full{grid-column:1/-1}
+  input,select,textarea{font-family:inherit;font-size:.95rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;font-weight:400;text-transform:none;letter-spacing:0}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent2)}
+  textarea{min-height:72px;resize:vertical}
+  .toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+  .toggle:last-child{border-bottom:none}
+  .toggle .t{font-size:.92rem;font-weight:500}
+  .toggle .d{font-size:.8rem;color:var(--soft)}
+  .sw{position:relative;width:44px;height:25px;flex:none}
+  .sw input{opacity:0;width:0;height:0;position:absolute}
+  .sw span{position:absolute;inset:0;background:#cfc9bf;border-radius:100px;transition:.2s;cursor:pointer}
+  .sw span:before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+  .sw input:checked + span{background:var(--accent)}
+  .sw input:checked + span:before{transform:translateX(19px)}
+  table{width:100%;border-collapse:collapse;font-size:.88rem}
+  th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line)}
+  th{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--soft)}
+  .pill{display:inline-block;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:100px;background:rgba(58,107,74,.14);color:var(--ok)}
+  .pill.off{background:var(--bg2);color:var(--soft)}
+  .btn{display:inline-block;background:var(--ink);color:var(--bg);border:none;border-radius:100px;padding:.7em 1.4em;font-weight:600;font-size:.88rem;cursor:pointer;font-family:inherit}
+  .btn:hover{background:var(--accent)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .savebar{position:sticky;bottom:0;margin-top:22px;background:rgba(244,239,230,.92);backdrop-filter:blur(6px);border-top:1px solid var(--line);padding:14px 0;display:flex;gap:10px;justify-content:flex-end;align-items:center}
+  .savebar .msg{margin-right:auto;font-size:.84rem;color:var(--soft)}
+  .note{font-size:.8rem;color:var(--soft);background:var(--bg2);border-radius:10px;padding:10px 13px;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <span class="ctx">Formulary OS · Settings</span>
+      <h1>Settings</h1>
+      <p>Adjust how the whole system runs. Reachable from the back office <b>and</b> the portal.</p>
+    </div>
+    <div class="who"><b id="whoName">Owner</b> · full access</div>
+  </div>
+
+  <!-- COMPANY -->
+  <div class="card">
+    <h2>Company</h2>
+    <div class="sub">Appears on quotes, invoices, and labels.</div>
+    <div class="grid">
+      <label class="full">Company name<input id="co_name" placeholder="The Cosmetic Formulary"></label>
+      <label>Contact email<input id="co_email" placeholder="hello@thecosmeticformulary.com"></label>
+      <label>Phone<input id="co_phone" placeholder="(843) ..."></label>
+      <label class="full">Address<input id="co_addr" placeholder="Ward Ave, Charleston SC"></label>
+    </div>
+  </div>
+
+  <!-- LOCATIONS & UNITS -->
+  <div class="card">
+    <h2>Locations &amp; units</h2>
+    <div class="sub">Where stock lives, and the units you measure in.</div>
+    <div class="grid">
+      <label class="full">Storage locations / bins (one per line)<textarea id="locations">Ward Ave
+C-1
+C-2
+C-3
+C-4
+D-1
+D-2
+D-3
+Bin 1
+Bin 2
+Bin 3
+Bin 4
+Bin 5
+Bin 6
+Bin 7</textarea></label>
+      <label>Default unit
+        <select id="unit_default"><option>Pounds</option><option>Ounces</option><option>Grams</option><option>Kilos</option><option>Units</option></select>
+      </label>
+      <label>Allowed units (comma separated)<input id="unit_list" placeholder="Pounds, Ounces, Grams, Kilos, Units"></label>
+    </div>
+  </div>
+
+  <!-- INVENTORY RULES -->
+  <div class="card">
+    <h2>Inventory rules</h2>
+    <div class="sub">How the system warns you about stock and expiry.</div>
+    <div class="grid">
+      <label>Default reorder point<input id="reorder_default" type="number" placeholder="5"></label>
+      <label>Expiry warning (days before)<input id="expiry_days" type="number" placeholder="90"></label>
+    </div>
+    <div style="margin-top:8px">
+      <div class="toggle"><div><div class="t">Low-stock alerts</div><div class="d">Flag items at or below their reorder point</div></div>
+        <label class="sw"><input type="checkbox" id="alert_low" checked><span></span></label></div>
+      <div class="toggle"><div><div class="t">Expiry alerts</div><div class="d">Flag lots nearing their expiry date</div></div>
+        <label class="sw"><input type="checkbox" id="alert_exp" checked><span></span></label></div>
+      <div class="toggle"><div><div class="t">Auto-backup to Google Drive</div><div class="d">Save a dated CSV snapshot to "Inventory System (Live Data)"</div></div>
+        <label class="sw"><input type="checkbox" id="auto_backup" checked><span></span></label></div>
+    </div>
+  </div>
+
+  <!-- TEAM & ROLES -->
+  <div class="card">
+    <h2>Team &amp; roles</h2>
+    <div class="sub">Who can see and do what. (Least-privilege — see ACCESS-AND-ROLES.)</div>
+    <table>
+      <thead><tr><th>Name</th><th>Role</th><th>Access</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Pauly Lieber</td><td>Owner</td><td>Everything</td><td><span class="pill">Active</span></td></tr>
+        <tr><td>Rashell Klavinger</td><td>Sales &amp; Ops</td><td>Orders, quotes, inventory</td><td><span class="pill">Active</span></td></tr>
+        <tr><td>Katherine Fox</td><td>Design</td><td>Products &amp; media</td><td><span class="pill">Active</span></td></tr>
+        <tr><td>Sanders Lieber</td><td>Formulation &amp; Manufacturing</td><td>Formulation, formula creation, manufacturing &amp; process</td><td><span class="pill">Active</span></td></tr>
+        <tr><td>Nicole M.</td><td>Jr. Formulation Chemist</td><td>Formula creation (assist), batches</td><td><span class="pill">Active</span></td></tr>
+        <tr><td>(Developer)</td><td>Engineer</td><td>Code + staging only</td><td><span class="pill off">Invite</span></td></tr>
+      </tbody>
+    </table>
+    <div class="note">💡 A client login only ever sees its own brand. A developer gets code + staging, never your customer data or billing.</div>
+  </div>
+
+  <!-- INTEGRATIONS -->
+  <div class="card">
+    <h2>Integrations</h2>
+    <div class="sub">The outside systems Formulary OS talks to.</div>
+    <div class="toggle"><div><div class="t">QuickBooks</div><div class="d">Accounting &amp; taxes — stays the system of record (untouched)</div></div><span class="pill">Connected</span></div>
+    <div class="toggle"><div><div class="t">Shopify</div><div class="d">Storefront catalog &amp; orders</div></div><span class="pill">Connected</span></div>
+    <div class="toggle"><div><div class="t">Google Drive</div><div class="d">Live data + CSV backups</div></div><span class="pill">Connected</span></div>
+    <div class="toggle"><div><div class="t">inFlow</div><div class="d">Being replaced by the Inventory module</div></div><span class="pill off">Retiring</span></div>
+  </div>
+
+  <!-- NOTIFICATIONS -->
+  <div class="card">
+    <h2>Notifications</h2>
+    <div class="sub">What lands in your inbox.</div>
+    <div class="toggle"><div><div class="t">New wholesale order</div><div class="d">Email when a practice places an order</div></div>
+      <label class="sw"><input type="checkbox" id="n_order" checked><span></span></label></div>
+    <div class="toggle"><div><div class="t">Low / out of stock</div><div class="d">Daily digest of items to reorder</div></div>
+      <label class="sw"><input type="checkbox" id="n_stock" checked><span></span></label></div>
+    <div class="toggle"><div><div class="t">Client messages</div><div class="d">Portal messages &amp; label approvals</div></div>
+      <label class="sw"><input type="checkbox" id="n_msg" checked><span></span></label></div>
+  </div>
+
+  <div class="savebar">
+    <span class="msg" id="saveMsg">Changes save to this device.</span>
+    <button class="btn ghost" onclick="resetSettings()">Reset</button>
+    <button class="btn" onclick="saveSettings()">Save changes</button>
+  </div>
+</div>
+
+<script>
+  var KEY='formulary_settings_v1';
+  var FIELDS=['co_name','co_email','co_phone','co_addr','locations','unit_default','unit_list','reorder_default','expiry_days'];
+  var TOGGLES=['alert_low','alert_exp','auto_backup','n_order','n_stock','n_msg'];
+  var DEFAULTS={co_name:'The Cosmetic Formulary',co_email:'hello@thecosmeticformulary.com',co_addr:'Ward Ave, Charleston SC',unit_default:'Pounds',unit_list:'Pounds, Ounces, Grams, Kilos, Units',reorder_default:'5',expiry_days:'90'};
+  function load(){
+    var s={};try{s=JSON.parse(localStorage.getItem(KEY))||{};}catch(e){}
+    FIELDS.forEach(function(f){var el=document.getElementById(f);if(!el)return;if(s[f]!=null&&s[f]!=='')el.value=s[f];else if(DEFAULTS[f]&&!el.value)el.value=DEFAULTS[f];});
+    TOGGLES.forEach(function(f){var el=document.getElementById(f);if(el&&s[f]!=null)el.checked=s[f];});
+  }
+  window.saveSettings=function(){
+    var s={};
+    FIELDS.forEach(function(f){var el=document.getElementById(f);if(el)s[f]=el.value;});
+    TOGGLES.forEach(function(f){var el=document.getElementById(f);if(el)s[f]=el.checked;});
+    localStorage.setItem(KEY,JSON.stringify(s));
+    var m=document.getElementById('saveMsg');m.textContent='✓ Saved '+new Date().toLocaleTimeString();
+    if(window.fosToast)fosToast('Settings saved');
+  };
+  window.resetSettings=function(){if(!confirm('Reset all settings to defaults?'))return;localStorage.removeItem(KEY);location.reload();};
+  load();
+</script>
+<script src="app-nav.js"></script>
+</body>
+</html>

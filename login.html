@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign in — The Cosmetic Formulary</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#f4efe6;--bg2:#ece5d9;--ink:#1d1c1a;--soft:#54514b;--line:#e2dacd;--paper:#fffdfa;--accent:#3a4b3f;--accent2:#7c8a6f;--gold:#a98a5c}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:radial-gradient(900px 500px at 50% -10%,#fffdfa,#efe7d8);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:34px 18px}
+  h1{font-family:'Fraunces',serif;font-weight:400;letter-spacing:-.01em}
+  .box{width:100%;max-width:400px;text-align:center}
+  .mark{width:56px;height:56px;border:1.6px solid var(--gold);color:var(--gold);border-radius:50%;display:grid;place-items:center;font-size:1rem;font-weight:700;margin:0 auto 16px;font-family:'Fraunces'}
+  .eye{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent2);font-weight:600}
+  h1{font-size:1.9rem;margin:.3em 0 .15em}
+  .tag{color:var(--soft);font-size:.92rem;margin-bottom:24px}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px;text-align:left;box-shadow:0 12px 40px rgba(40,35,25,.07)}
+  label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--soft);font-weight:600;margin-bottom:5px}
+  input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;color:var(--ink);padding:11px 13px;font-size:.95rem;font-family:inherit;margin-bottom:13px}
+  input:focus{outline:none;border-color:var(--accent2)}
+  .btn{width:100%;background:var(--accent);color:#fff;border:none;border-radius:100px;padding:.9em;font-weight:600;font-size:.95rem;cursor:pointer;font-family:inherit}
+  .btn:hover{background:var(--ink)}
+  .fp{display:block;text-align:center;color:var(--soft);font-size:.78rem;margin-top:12px;text-decoration:none}
+  .demo{margin-top:22px;font-size:.78rem;color:var(--soft)}
+  .demo .d{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+  .demo a{color:var(--accent);text-decoration:none;font-weight:600;display:inline-block;margin:0 8px;border-bottom:1px solid transparent}
+  .demo a:hover{border-bottom-color:var(--accent)}
+  .foot{color:var(--soft);font-size:.74rem;margin-top:22px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="mark">CF</div>
+  <span class="eye">The Cosmetic Formulary</span>
+  <h1>Sign in</h1>
+  <p class="tag">One login. You'll land where you belong.</p>
+
+  <div class="card">
+    <label>Email</label>
+    <input id="email" type="email" placeholder="you@thecosmeticformulary.com" autofocus />
+    <label>Password</label>
+    <input id="pw" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')signIn()" />
+    <button class="btn" onclick="signIn()">Sign in</button>
+    <div id="loginErr" style="display:none;color:#9b2d20;font-size:.82rem;margin-top:10px;text-align:center"></div>
+    <a class="fp" href="#" onclick="alert('We\\'ll email a reset link to the address on file. (Hosted version.)');return false;">Forgot password?</a>
+  </div>
+
+  <div class="demo">
+    <div class="d">Demo shortcuts</div>
+    <a href="#" onclick="asTeam();return false;">Enter as the TCF team →</a>
+    <a href="#" onclick="asClient();return false;">Preview a client (Daily Rou) →</a>
+  </div>
+
+  <div class="foot">Your team signs in here and runs the whole system.<br>Clients sign in with their own email and only ever see their brand.</div>
+</div>
+
+<script src="clients-data.js"></script>
+<script>
+  function setSession(o){ localStorage.setItem('fos_session', JSON.stringify(o)); location.href=o.area; }
+  function asTeam(){ setSession({name:'Pauly Lieber', role:'Owner', brand:null, area:'admin.html', id:'owner'}); }
+  function asClient(){ setSession({name:'Meredith Baurband', role:'Client', brand:'Daily Rou', area:'client-order.html', id:'dailyrou'}); }
+  function showErr(msg){ var el=document.getElementById('loginErr'); el.textContent=msg; el.style.display='block'; }
+  function signIn(){
+    var e=(document.getElementById('email').value||'').trim().toLowerCase();
+    if(!e){ showErr('Enter your email to sign in.'); return; }
+    var hit = (typeof TCF_lookup==='function') ? TCF_lookup(e) : null;
+    if(hit && hit.type==='client'){
+      setSession({ name:hit.client.name, role:'Client', brand:hit.client.brand, area:'client-order.html', id:hit.id });
+      return;
+    }
+    if(hit && hit.type==='staff'){
+      setSession({ name:'TCF Team', role:'Owner', brand:null, area:'admin.html', id:'owner' });
+      return;
+    }
+    showErr("We don't recognize that email yet. If you're an approved client, use the address on your account — or contact pauly@thecosmeticformulary.com to get set up.");
+  }
+</script>
+</body>
+</html>

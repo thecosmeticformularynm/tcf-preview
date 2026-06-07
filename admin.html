@@ -114,6 +114,13 @@
     <div class="grp">Catalog</div>
     <div class="nav" data-v="products"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 7 12 3 4 7v10l8 4 8-4zM4 7l8 4 8-4M12 21V11"/></svg> Products</div>
     <div class="nav" data-v="payments"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h20v12H2zM2 11h20M6 15h4"/></svg> Payments</div>
+    <div class="grp">Operations</div>
+    <div class="nav" data-v="inventory"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 7 12 3 4 7v10l8 4 8-4zM4 7l8 4 8-4M12 21V11"/></svg> Inventory <span class="badge">199</span></div>
+    <div class="nav" data-v="purchasing"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2 3 6v14h18V6l-3-4zM3 6h18M9 10a3 3 0 0 0 6 0"/></svg> Purchase Orders</div>
+    <div class="nav" data-v="manufacturing"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V9l5 4V9l5 4V9l4 3v9"/></svg> Manufacturing</div>
+    <div class="nav" data-v="vendors"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h12v10H3zM15 10h3l3 3v4h-6M7 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4M18 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/></svg> Vendors</div>
+    <div class="grp">Insight</div>
+    <div class="nav" data-v="reports"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18M8 17V9M13 17V5M18 17v-6"/></svg> Reports</div>
     <div class="nav" data-v="settings"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1l-.4-2.6h-4l-.4 2.6a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L5 11a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 2.6h4l.4-2.6a7 7 0 0 0 1.7-1l2.4 1 2-3.4-2-1.6a7 7 0 0 0 .1-1z"/></svg> Settings</div>
     <div class="who"><b>Rashell K.</b>Sales &amp; Operations · staff</div>
   </aside>
@@ -224,6 +231,73 @@
       </div>
       <div class="note">💡 Staff logins = Shopify <b>Users &amp; permissions</b>. This back office <i>is</i> your Shopify Admin — this prototype just shows it tuned to how you actually work.</div>
     </section>
+    <!-- INVENTORY -->
+    <section class="view" id="v-inventory">
+      <div class="head"><div><h1>Inventory</h1><p>Lot &amp; location tracking — the live system that replaces inFlow.</p></div><a class="btn" href="inventory.html">Open full inventory →</a></div>
+      <div class="cards">
+        <div class="card"><div class="k">Tracked lots</div><div class="v">199</div><div class="s">raw materials @ Ward Ave</div></div>
+        <div class="card"><div class="k">Distinct items</div><div class="v">150+</div><div class="s">core, actives, preservatives, fragrance</div></div>
+        <div class="card alert"><div class="k">Expiring &lt; 90 days</div><div class="v">4</div><div class="s">use these first</div></div>
+        <div class="card"><div class="k">Location</div><div class="v">Ward Ave</div><div class="s">bins C-1…D-3, Bin 1–7</div></div>
+      </div>
+      <div class="panel">
+        <div class="ph"><h3>Quick actions</h3><span class="sub">jump into the inventory app</span></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;padding:6px 2px">
+          <a class="btn" href="inventory.html">Search &amp; adjust stock</a>
+          <a class="btn ghost" href="inventory.html">Receive a new lot</a>
+          <a class="btn ghost" href="inventory.html">Export CSV</a>
+          <button class="btn ghost" onclick="window.fosToast&&fosToast('Backup saved to Drive · Inventory System (Live Data)')">Back up to Drive</button>
+        </div>
+      </div>
+      <div class="note">💡 This is your real inventory — 199 lots imported from inFlow. The full app has the dashboard, batch log, and CSV import/export.</div>
+    </section>
+
+    <!-- PURCHASING -->
+    <section class="view" id="v-purchasing">
+      <div class="head"><div><h1>Purchase Orders</h1><p>Order raw materials from suppliers; receive them in as lots.</p></div><button class="btn" onclick="window.fosToast&&fosToast('New purchase order — Phase 2')">+ New PO</button></div>
+      <div class="panel">
+        <div class="ph"><h3>Open purchase orders</h3><span class="sub">draft → sent → received</span></div>
+        <div class="row practrow"><div><div class="t">PO-2606-014 · Making Cosmetics</div><div class="meta">Zinc Oxide, Niacinamide, Glycerin — 6 lines</div></div><span class="badge2">Sent</span><button class="btn sm" onclick="window.fosToast&&fosToast('Receive against PO — Phase 2')">Receive</button></div>
+        <div class="row practrow"><div><div class="t">PO-2606-013 · Crafter’s Choice</div><div class="meta">Cetyl Alcohol, Stearic Acid — 4 lines</div></div><span class="badge2 b-active">Draft</span><button class="btn sm" onclick="window.fosToast&&fosToast('Edit PO — Phase 2')">Edit</button></div>
+      </div>
+      <div class="note">💡 Receiving a PO auto-creates the lot # and quantity in Inventory — no double entry.</div>
+    </section>
+
+    <!-- MANUFACTURING -->
+    <section class="view" id="v-manufacturing">
+      <div class="head"><div><h1>Manufacturing</h1><p>Batch runs — consume raw materials by formula, produce finished-good lots.</p></div><button class="btn" onclick="window.fosToast&&fosToast('Start a batch — Phase 4')">+ Start batch</button></div>
+      <div class="panel">
+        <div class="ph"><h3>Recent &amp; planned batches</h3><span class="sub">mirrors your weekly Batch Log</span></div>
+        <div class="row practrow"><div><div class="t">B-2412-006 · Salt Spa Back-Bar Scrub</div><div class="meta">120 units · QC passed · CoA attached</div></div><span class="badge2 b-active">Done</span><button class="btn sm" onclick="window.fosToast&&fosToast('Batch record — Phase 4')">Record</button></div>
+        <div class="row practrow"><div><div class="t">B-2412-003 · Daily Rou Gentle Cleanser</div><div class="meta">240 units · shipped</div></div><span class="badge2 b-ship">Shipped</span><button class="btn sm" onclick="window.fosToast&&fosToast('Batch record — Phase 4')">Record</button></div>
+      </div>
+      <div class="note">💡 Each batch pulls its formula (BOM), deducts raw materials by lot, and stamps the finished-good lot + expiry.</div>
+    </section>
+
+    <!-- VENDORS -->
+    <section class="view" id="v-vendors">
+      <div class="head"><div><h1>Vendors</h1><p>Your raw-material suppliers.</p></div><button class="btn" onclick="window.fosToast&&fosToast('Add vendor — Phase 2')">+ Add vendor</button></div>
+      <div class="panel">
+        <div class="ph"><h3>Suppliers on file</h3><span class="sub">pulled from your inFlow lots</span></div>
+        <div class="row practrow"><div><div class="t">Making Cosmetics</div><div class="meta">actives, zinc, specialty</div></div><span class="badge2 b-active">Active</span></div>
+        <div class="row practrow"><div><div class="t">Crafter’s Choice</div><div class="meta">waxes, butters, surfactants</div></div><span class="badge2 b-active">Active</span></div>
+        <div class="row practrow"><div><div class="t">Wellington Fragrance</div><div class="meta">fragrance oils (Type dupes)</div></div><span class="badge2 b-active">Active</span></div>
+        <div class="row practrow"><div><div class="t">Lotioncrafter · 33rd Parallel · Dr. Adorable</div><div class="meta">specialty raw materials</div></div><span class="badge2 b-active">Active</span></div>
+      </div>
+    </section>
+
+    <!-- REPORTS -->
+    <section class="view" id="v-reports">
+      <div class="head"><div><h1>Reports</h1><p>The numbers that run the business.</p></div></div>
+      <div class="setgrid">
+        <div class="setitem"><h4>Inventory valuation</h4><p>Total value of stock on hand by category.</p><button class="btn sm" onclick="window.fosToast&&fosToast('Run report — Phase 3')">Run</button></div>
+        <div class="setitem"><h4>Low stock</h4><p>Everything at or below its reorder point.</p><button class="btn sm" onclick="window.fosToast&&fosToast('Run report — Phase 3')">Run</button></div>
+        <div class="setitem"><h4>Expiring lots</h4><p>Raw materials nearing expiry.</p><button class="btn sm" onclick="window.fosToast&&fosToast('Run report — Phase 3')">Run</button></div>
+        <div class="setitem"><h4>Sales · MTD</h4><p>Revenue, orders, top SKUs.</p><button class="btn sm" onclick="window.fosToast&&fosToast('Run report — Phase 3')">Run</button></div>
+        <div class="setitem"><h4>COGS &amp; margin</h4><p>Cost vs. price by product.</p><button class="btn sm" onclick="window.fosToast&&fosToast('Run report — Phase 3')">Run</button></div>
+      </div>
+    </section>
+
   </main>
 </div>
 
@@ -305,5 +379,6 @@
   }
   function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 </script>
+<script src="app-nav.js"></script>
 </body>
 </html>

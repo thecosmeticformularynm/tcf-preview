@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Wholesale Portal — The Cosmetic Formulary</title>
+<title>Client Portal — The Cosmetic Formulary</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -116,12 +116,12 @@
 </style>
 </head>
 <body>
-<div class="demo-flag">Test mode · the practice login &amp; reorder portal — <a href="start.html" style="color:#fff;text-decoration:underline">back to test hub</a></div>
+<div class="demo-flag">Test mode · the client login &amp; reorder portal — <a href="start.html" style="color:#fff;text-decoration:underline">back to test hub</a></div>
 
 <div class="topbar">
   <div class="in">
     <a class="brand" href="index.html"><span class="mark">CF</span> The Cosmetic Formulary</a>
-    <span class="pill">Wholesale Portal · <b>Glow Dermatology</b></span>
+    <span class="pill">Client Portal · <b>Glow Dermatology</b></span>
     <div class="acct">
       <span>Your pricing is active</span>
       <span class="avatar">GD</span>
@@ -146,7 +146,7 @@
     <!-- REORDER -->
     <div class="view on" id="v-reorder">
       <div class="panel">
-        <div class="head"><h2>Reorder your line</h2><p>Your wholesale pricing, ready to reship. Minimums are set per product.</p></div>
+        <div class="head"><h2>Reorder your line</h2><p>Your pricing, ready to reship. Minimums are set per product.</p></div>
         <div id="reorderList"></div>
       </div>
     </div>
@@ -266,7 +266,7 @@
 </div>
 
 <script>
-// customer-specific wholesale pricing (what a B2B app serves on login)
+// customer-specific your pricing (what a B2B app serves on login)
 // cat: finished | raw | packaging   ·   unit label varies by type
 const ITEMS = [
   {n:"Vitamin C CF Serum",sub:"Refined Phloretin CF · 30mL · you sell ~$45",cat:"finished",g:"g4",w:14,unit:"unit",moq:50,qty:50},
@@ -340,7 +340,7 @@ const FEES={
   formulation:"A <b>formulation development fee</b> covers chemist time, sampling, and stability. Quoted up front, credited toward your first production run.",
   contractmfg:"<b>Contract manufacturing</b> — bring us your own approved formula and we batch, fill, label, and finish it at scale. Priced per unit by volume; raw materials and packaging quoted separately or supplied by you.",
   packaging:"<b>Packaging &amp; components</b> are sourced and quoted per item — bottles, tops, jars, boxes, and decoration. Bought independently of any run.",
-  run:"A <b>production run</b> manufactures an existing, approved formula at your per-unit wholesale price. No development fee."
+  run:"A <b>production run</b> manufactures an existing, approved formula at your per-unit your price. No development fee."
 };
 document.querySelectorAll('.ptype').forEach(p=>p.onclick=()=>{
   document.querySelectorAll('.ptype').forEach(x=>x.classList.remove('sel'));
@@ -423,12 +423,24 @@ document.querySelectorAll('.payopt').forEach(o=>o.onclick=()=>{
 
 <script>
   // ---- Messenger ----
+  var TCF_INBOX='sales@thecosmeticformulary.com';
+  var WEB3FORMS_KEY=''; // paste a free Web3Forms access key (registered to sales@) to deliver silently, no server
+  function routeToInbox(text){
+    var who=''; try{ var s=JSON.parse(localStorage.getItem('fos_session'))||{}; who=(s.name||'')+(s.brand?(' \u2014 '+s.brand):''); }catch(e){}
+    var subject='Portal message'+(who?(' from '+who):'');
+    if(WEB3FORMS_KEY){
+      fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:subject,from_name:who||'Client Portal',message:text})}).catch(function(){});
+    } else {
+      window.location.href='mailto:'+TCF_INBOX+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(text);
+    }
+  }
   function sendMsg(){
     var i=document.getElementById('msgInput'),v=i.value.trim();if(!v)return;
     var log=document.getElementById('chatlog');
     log.insertAdjacentHTML('beforeend','<div class="bubble you">'+esc(v)+'</div>');
     i.value='';log.scrollTop=log.scrollHeight;
-    setTimeout(function(){log.insertAdjacentHTML('beforeend','<div class="bubble them"><div class="who">Rashell · TCF</div>Got it — I\'ll follow up shortly. (In production this routes to your back office.)</div>');log.scrollTop=log.scrollHeight;},700);
+    routeToInbox(v);
+    setTimeout(function(){log.insertAdjacentHTML('beforeend','<div class="bubble them"><div class="who">Rashell \u00b7 TCF</div>Sent to your TCF team at '+TCF_INBOX+' \u2014 we\u2019ll reply by email and right here.</div>');log.scrollTop=log.scrollHeight;},700);
   }
   // ---- Documents ----
   var upCount=0;var upNames=['Brand-Guidelines.pdf','Label-Artwork-v4.ai','Ingredient-Brief.docx','Pantone-Spec.pdf'];
@@ -456,7 +468,7 @@ document.querySelectorAll('.payopt').forEach(o=>o.onclick=()=>{
     {k:['minimum','moq','smallest','how many','50','units to start'],a:"Your minimum is just <b>50 units</b> per product — one of the lowest in the industry. Tiers step down at 50 / 100 / 250 / 500 / 1,000 units."},
     {k:['lead time','how long','turnaround','weeks','when'],a:"Standard lead time is <b>~4 weeks</b> from approved PO + artwork to delivery — faster than most contract shops."},
     {k:['pay','payment','wire','ach','affirm','terms','card'],a:"Pay by <b>wire/ACH</b> (no fees, default), or finance over time with <b>Affirm</b> — you're charged nothing extra and the bank carries it. We never put you on our own terms."},
-    {k:['price','pricing','cost','wholesale','margin','retail'],a:"You see your <b>wholesale price</b> on login — typically <b>40–50% off</b> the suggested retail, so a practice runs ~<b>65–70% gross margin</b>. Each product shows your price and the retail MSRP."},
+    {k:['price','pricing','cost','wholesale','margin','retail'],a:"You see <b>your price</b> on login — typically <b>40–50% off</b> the suggested retail, so a practice runs ~<b>65–70% gross margin</b>. Each product shows your price and the retail MSRP."},
     {k:['made','where','manufactur','gmp','mocra','fda','quality'],a:"Everything is made in <b>Charleston, SC</b> under cGMP, with two-person weigh-out on every active and a <b>MoCRA-filed</b> regulatory file you can transfer."},
     {k:['sample','try','test'],a:"Samples are <b>$12</b> each (5mL) — order them from Reorder to test feel and finish before a full run."},
     {k:['raw','material','ingredient','active','kilo','bulk'],a:"Yes — we sell <b>raw materials &amp; actives</b> by the kilo too (L-ascorbic, niacinamide, HA, and more), à la carte alongside finished product and packaging."},
@@ -478,5 +490,32 @@ document.querySelectorAll('.payopt').forEach(o=>o.onclick=()=>{
   }
   function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 </script>
+<script>
+/* Brand the portal to whoever is signed in (e.g. Meredith -> Daily Rou). */
+(function(){
+  var s={}; try{ s=JSON.parse(localStorage.getItem('fos_session'))||{}; }catch(e){}
+  if(!s || !s.brand) return;
+  var pill=document.querySelector('.topbar .pill'); if(pill) pill.innerHTML='Client Portal · <b>'+s.brand+'</b>';
+  var av=document.querySelector('.topbar .avatar');
+  if(av) av.textContent=s.brand.replace(/[^A-Za-z ]/g,'').split(' ').filter(Boolean).map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();
+  var acc=document.querySelector('.topbar .acct span'); if(acc) acc.textContent='Welcome, '+((s.name||'').split(' ')[0]);
+  var flag=document.querySelector('.demo-flag');
+  if(flag) flag.innerHTML='Signed in as <b>'+(s.name||'')+'</b> · '+s.brand+' client portal — <a href="start.html" style="color:#fff;text-decoration:underline">hub</a>';
+  if(/daily rou/i.test(s.brand) && typeof ITEMS!=='undefined'){
+    ITEMS.length=0;
+    [
+      ["Daily Rou Cream Cleanser","6 oz \u00b7 signature",8.5,100,"g1"],
+      ["Daily Rou Gel Cleanser","6 oz \u00b7 signature",8.5,100,"g1"],
+      ["Daily Rou Oil Cleanser","4 oz \u00b7 signature",9,100,"g1"],
+      ["Daily Rou Essential C 30%","1 oz \u00b7 THD vitamin C serum",14,50,"g2"],
+      ["Daily Rou Tinted Mineral Sunscreen SPF 50","1.6 oz",12,100,"g2"],
+      ["Daily Rou Sheer Mineral Sunscreen SPF 50","1.6 oz",12,100,"g2"]
+    ].forEach(function(p){ ITEMS.push({n:p[0],sub:p[1],cat:"finished",g:p[4],w:p[2],unit:"unit",moq:p[3],qty:0}); });
+    if(typeof renderList==='function') renderList();
+    if(typeof recalc==='function') recalc();
+  }
+})();
+</script>
+<script src="app-nav.js"></script>
 </body>
 </html>
