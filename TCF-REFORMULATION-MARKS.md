@@ -1,7 +1,7 @@
-# The TCF Standard — Reformulation Marks
-### Single Source of Truth · v1.0 · locked 2026-06-08
+# The TCF Standard — TCF Marks
+### Single Source of Truth · v1.1 · updated 2026-06-08
 
-This document is the **canonical definition** of the TCF Standard and its seven Reformulation Marks.
+This document is the **canonical definition** of the TCF Standard and its seven TCF Marks.
 It is intellectual property and the strongest differentiator on the site. **Nothing about a Mark — its
 name, label, glyph, definition, or proof line — may change anywhere (card, PDP, collection legend,
 marketing, decks) without updating THIS document first and bumping the version.** If the site and this
@@ -12,12 +12,51 @@ Live code source today: `snippets/tcf-standard.liquid` (renders the Marks) and t
 
 ---
 
+## The architecture — five layers (the IP stack)
+
+Value compounds top-down. Layers 1–2 are the brand/credibility; **Layer 3 is the moat**; Layer 5 is the future.
+
+1. **The TCF Standard™** — the methodology and the seal. The authority everything ladders up to.
+2. **The Six Evaluation Standards™** — the lenses we judge against (the rubric). See Layer 1 below.
+3. **The Benchmark Library™** — the proprietary research asset. **This is the real moat.** See below.
+4. **TCF Marks™** — the visible, scannable indicators on every product (the closed set). See Layer 2 below.
+5. **TCF Score™** *(future)* — a quantified rating, once enough data exists. The eventual "Morningstar move." **Not now** — years out, after real usage and data.
+
+> A benchmark *framework* is not a moat. A benchmark *database* is. Gartner doesn't own the Magic Quadrant — it owns the research behind it.
+
+## Level 3 · The Benchmark Library™ (the moat)
+
+Every time TCF evaluates a category leader — **Obagi, SkinBetter, SkinCeuticals, ZO, Alastin, Revision,
+Epionce, Neocutis, EltaMD**, and on — it produces **proprietary category intelligence**: what the
+incumbent's formula does, where it compromises, what the professional-grade equivalent should be, and the
+substantiated record of what TCF changed. Over years this becomes a research asset no competitor can clone
+overnight — the thing a strategic acquirer/PE actually buys.
+
+- The Library is *referenced* on products (the Benchmark Product anchor), but its value is the **accumulated
+  database**, not any single mention.
+- Treat every evaluation as a durable asset: capture the anchor, the Standards assessed, the Marks lit, and
+  the proof — consistently, every time. Build it like data, not copy.
+
+## v1.1 decisions (locked)
+
+- **"Reformulation Marks" → TCF Marks™.** The Marks apply to **every TCF formula** — reformulated
+  benchmarks, **original** formulas, future **AI-generated** formulas, and **patented** formulas alike. The
+  name carries no "we-copied-someone" ceiling. *(Today the Marks render only on benchmarked products;
+  extending the render to originals is a later content pass, not a v1.1 change.)*
+- **All seven Marks retained, unchanged.** In particular **⑦ Daily-Use Tuned stays** — it maps to
+  satisfaction → retention → repurchase, which is where enterprise value compounds (med-spa + founder buyers).
+- **All six Evaluation Standards retained, unchanged.**
+- **Major renames / merges deferred** until real dermatologists, med-spa owners, and founders have used the
+  framework. Optimize names *after* exposure, not before.
+
+---
+
 ## The framework has two layers — keep them separate
 
 - **Layer 1 — The Lens (Evaluation Standards):** the six measures we judge a formula against. This is
   *credibility* — the "by what standard." It belongs on the About / Standards page and the catalog
   explainer, **not** on every product.
-- **Layer 2 — The Action (Reformulation Marks):** a **closed set of seven** things we may have done to a
+- **Layer 2 — The Action (TCF Marks):** a **closed set of seven** things we may have done to a
   formula. This is what appears **on the product card and PDP**. Each product lights up only the **3–5
   that apply** — same vocabulary, every time. Think nutrition panel: learn the badges once, read every
   product in two seconds.
@@ -37,7 +76,7 @@ Live code source today: `snippets/tcf-standard.liquid` (renders the Marks) and t
 
 ---
 
-## Layer 2 · The seven Reformulation Marks (the closed vocabulary)
+## Layer 2 · The seven TCF Marks (the closed vocabulary)
 
 Every product is tagged from **only** these seven. Each Mark has: a **glyph** (stable identifier), a
 **display label** (scannable, on cards), a **short label** (for tight UI), the **Standard it maps to**
@@ -194,3 +233,7 @@ Manufacturing page).
 ### Changelog
 - v1.0 — 2026-06-08 — Initial lock. Seven Marks, six Standards, benchmark + signature rules, category
   defaults, icon strategy, banned-language list.
+- v1.1 — 2026-06-08 — Renamed "Reformulation Marks" → **TCF Marks™** (applies to all formula origins).
+  Elevated the **Benchmark Library™** to a named Level-3 asset (the moat) + documented the five-layer
+  architecture and **TCF Score™** (future). All 7 Marks and 6 Standards retained unchanged (Daily-Use Tuned
+  explicitly kept). Major renames/merges deferred pending real buyer feedback.
