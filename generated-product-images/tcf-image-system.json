@@ -1,0 +1,109 @@
+{
+  "system": "The Cosmetic Formulary — Master Authority Image System",
+  "model": "gpt-image-1",
+  "quality": "high",
+  "note": "gpt-image-1 has no separate negative-prompt API field; the runner appends negative_prompt to the prompt as an 'Avoid' clause. Aspect 16:9 maps to size 1536x1024.",
+  "global_negative_prompt": "fake or invented machinery, fantasy or sci-fi laboratory, colorful chemistry, glowing or neon liquids, neon lighting, dramatic color grading, influencer or beauty-blog aesthetics, wellness or spa photography, bamboo, candles, flowers, plants, spa robes, towels, generic stock smiling models, people pointing at clipboards, impossible or futuristic equipment, food-processing or kitchen equipment, open cooking kettles, readable brand names, legible text, logos, watermarks, low-resolution, distorted hands, oversaturation",
+  "images": [
+    {
+      "image_name": "tcf-01-hero",
+      "page": "Homepage",
+      "section": "Hero",
+      "aspect_ratio": "16:9",
+      "priority": 1,
+      "placement_location": "sections/tcf-storefront.liquid — replace the hero right-side credential card area (.hp-hero) with a large split-screen image; copy stays on the left third",
+      "prompt": "Ultra-realistic editorial photograph of a modern cosmetic GMP manufacturing suite, captured candidly. A clean stainless-steel production room with polished sanitary jacketed mixing tanks, smooth stainless piping and tri-clamp fittings, wall-mounted digital control panels, and a spotless epoxy-resin floor. One technician in a clean white lab coat and hair net stands at the vessel controls, three-quarter angle, mid-task, not posing, not looking at camera. Bright even clinical lighting, cool neutral white balance, soft realistic shadows, no color grading. Shot on a 35mm lens, slightly elevated camera, natural deep depth of field. Composition deliberately leaves clean negative space on the left third for text. Luxury-industrial, Apple-keynote discipline, Thermo Fisher and Danaher manufacturing authority. Photorealistic, sharp, expensive because the operation is real.",
+      "negative_prompt": "GLOBAL"
+    },
+    {
+      "image_name": "tcf-02-contract-manufacturing",
+      "page": "Homepage + Contract Manufacturing",
+      "section": "Capability tile / page hero",
+      "aspect_ratio": "16:9",
+      "priority": 1,
+      "placement_location": "sections/tcf-storefront.liquid Programs/Capabilities tile 'Contract Manufacturing' AND sections/tcf-contract.liquid hero band",
+      "prompt": "Ultra-realistic photograph of a cosmetic GMP batching hall with several polished stainless-steel jacketed mixing vessels in a row, sanitary piping, valves, and digital control panels on the wall. One operator in a white lab coat and hair net checks a printed batch record beside a vessel, candid, mid-task. Clean epoxy floor, bright clinical lighting, neutral cool white balance, no color grading. Must read clearly as cosmetic and pharmaceutical manufacturing, never food processing — no open kettles, no kitchen stainless. 35mm lens, near eye-level, realistic depth of field. Sharp, photorealistic, institutional, restrained.",
+      "negative_prompt": "GLOBAL"
+    },
+    {
+      "image_name": "tcf-03-custom-formulation",
+      "page": "Homepage + Custom Formulation",
+      "section": "Capability tile / page hero",
+      "aspect_ratio": "16:9",
+      "priority": 1,
+      "placement_location": "sections/tcf-storefront.liquid tile 'Custom Formulation' AND sections/tcf-formulation.liquid hero band",
+      "prompt": "Ultra-realistic photograph of a senior cosmetic chemist at a real laboratory bench performing bench formulation. Visible: clear glass beakers holding neutral white and translucent cosmetic emulsions, a precision analytical balance with a small sample, a benchtop pH meter, and pipettes in a stand. The chemist in a white lab coat and nitrile gloves is focused on the work, hands on the equipment, candid, not posing. Clean white lab surface, stainless and white cabinetry behind, bright neutral lab lighting. All liquids strictly neutral white or clear — no colorful or glowing chemicals. 50mm lens, shallow realistic depth of field across the bench. Photorealistic, clinical, credible.",
+      "negative_prompt": "GLOBAL"
+    },
+    {
+      "image_name": "tcf-04-packaging",
+      "page": "Homepage + Packaging",
+      "section": "Capability tile",
+      "aspect_ratio": "16:9",
+      "priority": 1,
+      "placement_location": "sections/tcf-storefront.liquid tile 'Packaging' AND collection header for /collections/packading",
+      "prompt": "Ultra-realistic three-quarter product photograph of premium empty skincare packaging components arranged in neat rows on a clean matte light-gray surface. Visible: white airless pump bottles, frosted and white glass dropper bottles, low wide cosmetic jars with brushed-silver lids, treatment pumps, and folded white cartons — all unlabeled, matte white and brushed metal. Organized by type, evenly spaced, minimalist and engineered. Apple product-photography lighting: soft, even, with clean grounding shadows. Neutral cool palette, no props. Sharp, photorealistic, premium, restrained.",
+      "negative_prompt": "GLOBAL"
+    },
+    {
+      "image_name": "tcf-05-raw-materials",
+      "page": "Homepage + Raw Materials",
+      "section": "Capability tile",
+      "aspect_ratio": "16:9",
+      "priority": 1,
+      "placement_location": "sections/tcf-storefront.liquid tile 'Raw Materials' AND collection header for /collections/raw-materials",
+      "prompt": "Ultra-realistic clinical photograph of a cosmetic raw-material evaluation bench. Visible: labeled white sample jars and clear or amber lab containers holding neutral cosmetic powders and fine active ingredients, a few small glass vials, and a precision balance, arranged neatly on a clean white surface in a controlled lab. Scientific, orderly, restrained. Strictly no food, no fruit, no scattered botanical leaves, no kitchen ingredients — this is professional cosmetic ingredient evaluation. Neutral muted tones of white, beige, and soft gray, bright even lab lighting. 50mm lens, realistic shallow depth of field. Photorealistic, credible.",
+      "negative_prompt": "GLOBAL"
+    },
+    {
+      "image_name": "tcf-06-tcf-standard",
+      "page": "Homepage + Benchmark Library",
+      "section": "The TCF Standard methodology band",
+      "aspect_ratio": "16:9",
+      "priority": 2,
+      "placement_location": "sections/tcf-storefront.liquid 'The TCF Standard' section (as a band visual) AND sections/tcf-benchmark-library.liquid methodology section",
+      "prompt": "Ultra-realistic photograph of a quiet executive strategy room. A large clean wall-mounted display shows an abstract product-evaluation and category-benchmarking framework — neutral charts, grids, and a comparison matrix, with no readable brand names and no legible text. A professional in business attire stands considering the wall, seen from behind or in profile, candid. Muted graphite, steel, and off-white palette, soft architectural lighting, glass and matte surfaces. The mood of McKinsey, Gartner, or Morningstar research — institutional, calm, authoritative. 35mm lens, photorealistic, no neon, no science fiction.",
+      "negative_prompt": "GLOBAL"
+    },
+    {
+      "image_name": "tcf-07-benchmark-library",
+      "page": "Benchmark Library",
+      "section": "Hero",
+      "aspect_ratio": "16:9",
+      "priority": 1,
+      "placement_location": "sections/tcf-benchmark-library.liquid hero (navy hero background or adjacent image band)",
+      "prompt": "Ultra-realistic photograph of a professional research operations center. A large curved digital wall shows abstract category analysis and formula-evaluation dashboards — neutral data visualizations, grids, and scoring panels, with no readable brand names and no legible text. Two or three analysts in business-professional attire review the data, candid, mid-discussion. Cool graphite-and-steel interior, glass desks, restrained architectural lighting. The mood of a Bloomberg terminal or Morningstar research floor applied to skincare categories. 35mm lens, photorealistic, serious, expensive, no neon, no science fiction.",
+      "negative_prompt": "GLOBAL"
+    },
+    {
+      "image_name": "tcf-08-catalog",
+      "page": "Homepage + Collections",
+      "section": "Professional Catalog",
+      "aspect_ratio": "16:9",
+      "priority": 2,
+      "placement_location": "sections/tcf-storefront.liquid 'Professional Catalog' section header AND optional collection hero",
+      "prompt": "Ultra-realistic clinical product-lineup photograph: a row of 12 to 16 professional skincare products in matte-white airless bottles, dropper bottles, and brushed-silver-lid jars, perfectly aligned on a seamless clinical white background. Minimal, dermatology-grade, professional-channel aesthetic. Labels are clean neutral white with simple black type — no colorful labels, no influencer branding, no readable logos or legible text. Soft even high-key studio lighting, gentle grounding shadows, cool neutral white balance. Straight-on, slightly elevated angle. Photorealistic, sharp, premium, restrained.",
+      "negative_prompt": "GLOBAL"
+    },
+    {
+      "image_name": "tcf-09-dermatology-practice",
+      "page": "Homepage",
+      "section": "Buyer Pathways — Dermatology practices",
+      "aspect_ratio": "16:9",
+      "priority": 3,
+      "placement_location": "sections/tcf-storefront.liquid Buyer Pathways 'Dermatology practices' card",
+      "prompt": "Ultra-realistic photograph of a modern, upscale dermatology practice interior. A physician in a clean white coat reviews a small lineup of professional skincare products on a clean counter; a tidy reception desk and a treatment room are softly visible in the background. Calm, premium, clinical, credible. Neutral architecture — white, glass, light wood accents, graphite detailing. Natural bright daylight, neutral white balance, no exaggerated beauty retouching, no cosmetic-surgery imagery. 35mm lens, candid, realistic depth of field. Photorealistic, professional.",
+      "negative_prompt": "GLOBAL"
+    },
+    {
+      "image_name": "tcf-10-med-spa",
+      "page": "Homepage",
+      "section": "Buyer Pathways — Med spas",
+      "aspect_ratio": "16:9",
+      "priority": 3,
+      "placement_location": "sections/tcf-storefront.liquid Buyer Pathways 'Med spas' card",
+      "prompt": "Ultra-realistic photograph of a luxury med-spa retail and product-education area. A clean, well-lit shelving display of professional skincare in neutral packaging beside a sleek consultation counter. Clinical-premium, restrained, modern — white, glass, brushed metal, graphite accents. Strictly no candles, no flowers, no bamboo, no spa robes, no wellness decor, no yoga imagery. Bright neutral lighting, calm and high-end. 35mm lens, photorealistic, credible retail environment.",
+      "negative_prompt": "GLOBAL"
+    }
+  ]
+}
