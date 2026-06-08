@@ -1,0 +1,134 @@
+/* =====================================================================
+   THE COSMETIC FORMULARY — DESIGN SYSTEM  (Phase 2A: tokens + primitives)
+   Single source of truth for the TCF custom layer.
+   Brand direction: clinical / stainless-steel / graphite / off-white.
+   NOTE: tokens + .tcf-* primitives only. Existing sections are NOT
+   restyled here — they adopt these in later phases.
+   Lives on the theme at assets/tcf.css (loaded once via snippets/meta-tags.liquid).
+   ===================================================================== */
+:root{
+  /* --- 1. Color tokens --- */
+  --tcf-black:#171717;
+  --tcf-soft-black:#222222;
+  --tcf-white:#F8F8F6;
+  --tcf-off-white:#F3EFE7;
+  --tcf-border:#DDD6C8;
+  --tcf-steel:#A8AFB7;
+  --tcf-deep-steel:#5F6973;
+  --tcf-navy:#1E2936;
+  --tcf-muted:#666666;
+  --tcf-paper:#FFFDFC;
+  /* semantic aliases */
+  --tcf-ink:var(--tcf-soft-black);
+  --tcf-ink-strong:var(--tcf-black);
+  --tcf-bg:var(--tcf-white);
+  --tcf-surface:var(--tcf-paper);
+  --tcf-line:var(--tcf-border);
+  --tcf-line-cool:var(--tcf-steel);
+  --tcf-accent:var(--tcf-navy);
+  --tcf-accent-2:var(--tcf-deep-steel);
+  --tcf-cta:var(--tcf-black);
+  --tcf-cta-ink:#ffffff;
+
+  /* --- 2. Typography tokens --- */
+  --tcf-font-serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --tcf-font-sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --tcf-fw-light:300; --tcf-fw:400; --tcf-fw-med:500; --tcf-fw-semi:600; --tcf-fw-bold:700;
+  --tcf-lh-tight:1.08; --tcf-lh-snug:1.3; --tcf-lh:1.6;
+  --tcf-track-eyebrow:.16em; --tcf-track-tight:-.02em;
+
+  /* --- 3. Spacing scale --- */
+  --tcf-1:4px; --tcf-2:8px; --tcf-3:12px; --tcf-4:16px; --tcf-5:20px;
+  --tcf-6:24px; --tcf-8:32px; --tcf-10:40px; --tcf-12:48px; --tcf-16:64px;
+  --tcf-20:80px; --tcf-24:96px;
+
+  /* --- 4. Container tokens --- */
+  --tcf-container:1240px;
+  --tcf-container-narrow:960px;
+  --tcf-gutter:24px;
+
+  /* --- 5. Border tokens --- */
+  --tcf-bw:1px;
+  --tcf-bw-strong:1.5px;
+
+  /* --- 6. Radius tokens (squared/clinical, not pills) --- */
+  --tcf-radius-xs:4px; --tcf-radius-sm:6px; --tcf-radius:10px;
+  --tcf-radius-lg:16px; --tcf-radius-pill:100px;
+
+  /* --- 7. Shadow tokens --- */
+  --tcf-shadow-sm:0 1px 2px rgba(23,23,23,.06);
+  --tcf-shadow:0 8px 24px rgba(30,41,54,.08);
+  --tcf-shadow-lg:0 24px 60px rgba(30,41,54,.12);
+
+  /* motion */
+  --tcf-ease:cubic-bezier(.4,0,.1,1);
+  --tcf-dur:.2s;
+
+  /* --- collision neutralizer: force readable form-field text site-wide
+     (NextSky sets --input-color from the color scheme heading colour, which
+     rendered the cart quantity invisible). Inputs sit on light fields, so
+     dark text is universally safe. --- */
+  --input-color:#222222 !important;
+  --input-placeholder-color:#6b6b6b !important;
+}
+
+/* extra safety net for the readability collision, scoped to TCF surfaces */
+.tcf-field,
+.tcf-cart input, .tcf-cart textarea,
+.tcf-pdp input, .tcf-pdp textarea,
+.tcfpc input{ color:var(--tcf-ink); }
+input[type=text],input[type=number],input[type=search],input[type=email],
+input[type=tel],input[type=password],textarea,select{ color:var(--input-color,#222222); }
+
+/* 8. Typography classes */
+.tcf-hero{font-family:var(--tcf-font-serif);font-weight:var(--tcf-fw);font-size:clamp(2.6rem,5.5vw,4.4rem);line-height:var(--tcf-lh-tight);letter-spacing:var(--tcf-track-tight);color:var(--tcf-ink-strong)}
+.tcf-page-heading{font-family:var(--tcf-font-serif);font-weight:var(--tcf-fw);font-size:clamp(2.1rem,4vw,3rem);line-height:1.12;letter-spacing:-.01em;color:var(--tcf-ink-strong)}
+.tcf-section-heading{font-family:var(--tcf-font-serif);font-weight:var(--tcf-fw);font-size:clamp(1.5rem,2.6vw,2rem);line-height:1.18;color:var(--tcf-ink-strong)}
+.tcf-card-title{font-family:var(--tcf-font-serif);font-weight:var(--tcf-fw);font-size:1.12rem;line-height:1.22;color:var(--tcf-ink)}
+.tcf-body{font-family:var(--tcf-font-sans);font-weight:var(--tcf-fw);font-size:1rem;line-height:var(--tcf-lh);color:var(--tcf-ink)}
+.tcf-small{font-family:var(--tcf-font-sans);font-weight:var(--tcf-fw);font-size:.85rem;line-height:1.5;color:var(--tcf-muted)}
+.tcf-eyebrow{font-family:var(--tcf-font-sans);font-weight:var(--tcf-fw-semi);font-size:.7rem;text-transform:uppercase;letter-spacing:var(--tcf-track-eyebrow);color:var(--tcf-deep-steel)}
+.tcf-label{font-family:var(--tcf-font-sans);font-weight:var(--tcf-fw-semi);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--tcf-muted)}
+.tcf-nav{font-family:var(--tcf-font-sans);font-weight:var(--tcf-fw-med);font-size:.85rem;letter-spacing:.01em;color:var(--tcf-ink)}
+
+/* 9. Buttons */
+.tcf-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--tcf-font-sans);font-weight:var(--tcf-fw-semi);font-size:.9rem;line-height:1;text-decoration:none;cursor:pointer;border:var(--tcf-bw) solid transparent;border-radius:var(--tcf-radius-sm);padding:14px 26px;transition:background var(--tcf-dur) var(--tcf-ease),color var(--tcf-dur),border-color var(--tcf-dur);white-space:nowrap}
+.tcf-btn--primary{background:var(--tcf-cta);color:var(--tcf-cta-ink);border-color:var(--tcf-cta)}
+.tcf-btn--primary:hover{background:var(--tcf-navy);border-color:var(--tcf-navy)}
+.tcf-btn--ghost{background:transparent;color:var(--tcf-ink);border-color:var(--tcf-line)}
+.tcf-btn--ghost:hover{border-color:var(--tcf-ink);background:rgba(23,23,23,.03)}
+.tcf-btn--light{background:var(--tcf-paper);color:var(--tcf-ink);border-color:var(--tcf-line)}
+.tcf-btn--light:hover{border-color:var(--tcf-deep-steel)}
+.tcf-btn--block{display:flex;width:100%}
+.tcf-btn--sm{padding:10px 18px;font-size:.82rem}
+.tcf-btn--lg{padding:17px 32px;font-size:.95rem}
+.tcf-btn:disabled,.tcf-btn[aria-disabled=true]{opacity:.55;cursor:default;pointer-events:none}
+
+/* 10. Form fields */
+.tcf-field{display:block;width:100%;font-family:var(--tcf-font-sans);font-size:1rem;color:var(--tcf-ink);background:var(--tcf-paper);border:var(--tcf-bw) solid var(--tcf-line);border-radius:var(--tcf-radius-sm);padding:12px 14px;transition:border-color var(--tcf-dur)}
+.tcf-field::placeholder{color:var(--tcf-muted)}
+.tcf-field:hover{border-color:var(--tcf-deep-steel)}
+.tcf-fieldset{display:flex;flex-direction:column;gap:6px}
+
+/* 11. Cards + 12. Badges + containers */
+.tcf-card{background:var(--tcf-surface);border:var(--tcf-bw) solid var(--tcf-line);border-radius:var(--tcf-radius);overflow:hidden}
+.tcf-card--hover{transition:box-shadow var(--tcf-dur),border-color var(--tcf-dur),transform var(--tcf-dur)}
+.tcf-card--hover:hover{box-shadow:var(--tcf-shadow);border-color:var(--tcf-line-cool)}
+.tcf-badge{display:inline-block;font-family:var(--tcf-font-sans);font-weight:var(--tcf-fw-semi);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--tcf-deep-steel);background:var(--tcf-white);border:var(--tcf-bw) solid var(--tcf-line);border-radius:var(--tcf-radius-pill);padding:5px 11px}
+.tcf-container{max-width:var(--tcf-container);margin-inline:auto;padding-inline:var(--tcf-gutter)}
+.tcf-container--narrow{max-width:var(--tcf-container-narrow)}
+
+/* 13. Image treatment */
+.tcf-shot{display:block;width:100%;aspect-ratio:1/1;background:var(--tcf-white);overflow:hidden}
+.tcf-shot img,.tcf-img{display:block;width:100%;height:100%;object-fit:cover}
+.tcf-img--contain{object-fit:contain}
+
+/* Focus states */
+.tcf-btn:focus-visible,.tcf-link:focus-visible,a.tcf-focus:focus-visible{outline:2px solid var(--tcf-navy);outline-offset:2px}
+.tcf-field:focus-visible{outline:2px solid var(--tcf-navy);outline-offset:0;border-color:var(--tcf-navy)}
+
+/* 14. Mobile-safe base (scoped to .tcf — never touches the theme) */
+.tcf,.tcf *{box-sizing:border-box}
+.tcf img{max-width:100%;height:auto}
+.tcf{ -webkit-text-size-adjust:100%; }
+@media (max-width:560px){ .tcf-container{--tcf-gutter:18px} }
